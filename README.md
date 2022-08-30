@@ -10,7 +10,7 @@ If you are planning to use the current workspace, ask internally for the tokens 
 
 Otherwise, `cd data-project` and follow the [README](/data-project/README.md) of that folder.
 
-## The web istelf
+## The website
 
 `cd demo-ecomm-svelte` and follow the [README](/demo-ecomm-svelte/README.md).
 
