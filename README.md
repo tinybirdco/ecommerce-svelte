@@ -20,7 +20,7 @@ Check the /todo page to check planned developments.
 
 ### Using the Tinybird Web Analytics Starter Kit
 
-Follow the [Starter Kit README](https://github.com/tinybirdco/web-analytics-starter-kit#readme) and add the flock.js scrtipt in `demo-ecomm-svelte/src/routes/+page.svelte` inside the `<svelte:head>` tag:
+Follow the [Starter Kit README](https://github.com/tinybirdco/web-analytics-starter-kit#readme) and add the flock.js scrtipt in `demo-ecomm-svelte/src/routes/+layout.svelte` inside the `<svelte:head>` tag:
 
 ```html
 <svelte:head>
@@ -29,6 +29,8 @@ Follow the [Starter Kit README](https://github.com/tinybirdco/web-analytics-star
 </svelte:head>
 ```
 
-And you can check your dashboard right away: [https://analytics.tinybird.co/?token={your-dashboard-token}](https://analytics.tinybird.co/?token={your-dashboard-token})
+And you can check your dashboard right away: [https://analytics.tinybird.co/](https://analytics.tinybird.co/) adding the `dashboard` token from your workspace.
+
+Note: we already included it using the `VITE_WEB_TRACKER` and `VITE_WEB_TRACKER` environment variables.
 
 [^1]: Very basic in the sense of not taking to account the user journey, just the number of visits, sales, and people who added to cart for each product. It definetly can be enhanced.

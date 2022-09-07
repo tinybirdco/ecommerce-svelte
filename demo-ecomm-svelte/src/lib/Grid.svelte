@@ -8,7 +8,7 @@
   ]
   export let ranking;
   export let products;
-  const tbAppendToken = import.meta.env.VITE_TB_APPEND_TOKEN
+  const tbAppendToken = import.meta.env.VITE_TB_APPEND_TOKEN;
 </script>
 
 <div class="flex flex-row flex-wrap max-w-screen-xl my-0 mx-auto px-1 py-2 gap-4 mb-3">

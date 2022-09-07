@@ -24,9 +24,7 @@
 
 </script>
 
-<svelte:head>
-	<title>Home - SvelteKit Commerce</title>
-</svelte:head>
+
 
 <main>
 	<h1 class="text-4xl leading-none text-slate-900 font-black m-4">Tinybird Store</h1>
@@ -84,11 +82,17 @@
 			</div>
 			<div>
 				<div class="lg:text-2xl">
-					Demo app to showcase the value of realtime presonalization with a simple use case.
+					Demo app to showcase the value of realtime personalization with a simple use case.<br>
+					<a href="/about" class="mt-4 font-bold text-svelteOrange hover:text-svelteDark lg:text-2xl">
+						Check how it works here.
+					</a>
 				</div>
-				<a href="/about" class="mt-4 font-bold text-svelteOrange hover:text-svelteDark lg:text-2xl">
-					Read it here
-				</a>
+				<div class="lg:text-2xl">
+					You can use Tinybird Data Generator to simulate higher traffic.
+					<a href="/generate-data" class="mt-4 font-bold text-svelteOrange hover:text-svelteDark lg:text-2xl">
+						Guide here.
+					</a>
+				</div>
 			</div>
 		</div>
 	</section>
