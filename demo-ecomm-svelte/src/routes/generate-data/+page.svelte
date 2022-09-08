@@ -10,26 +10,31 @@
   let compJSON = compressJSON(jsonchema);
 
 </script>
+<div class="m-4">
 
-<h1>Use Tinybird Data Generator to simulate real traffic:</h1>
-
-{#await compJSON then lzma}
-<ol class="list-decimal">
-	<li> Open this <a class="underline" href={`${dgUrlViews}&schema=${lzma}`} target="_blank">link</a>, copy the JSON below and paste it in the
-		Schema Builder section.
-	</li>
-	<li>Click on Save and make sure you see something like {`{
-    "date": "2022-08-30T08:30:07",
-    "product": "sZzx0cUDX98"
-  }`} in the Data Preview section
+  <h1>Use Tinybird Data Generator to simulate real traffic:</h1>
+  
+  {#await compJSON then lzma}
+  <ol class="list-decimal ml-4">
+    <li> Open this <a class="underline" href={`${dgUrlViews}&schema=${lzma}`} target="_blank">link</a>, copy the JSON below and paste it in the
+      Schema Builder section.
+    </li>
+    <li>Click on Save and make sure you see something like <br> 
+<code class="p-2 bg-black text-white">{`{
+  "date": "2022-08-30T08:30:07",
+  "product": "sZzx0cUDX98"
+}`}</code>
+<br>in the Data Preview section
 	</li>
   <li>Click on Start Generating! and go back to the demo <a class="underline" href="/">home</a> and check that
   </li>
 </ol>
-<pre class="bg-black w-96"><code class="text-white">{JSON.stringify(JSON.parse(jsonchema), null, 4)}</code></pre>
+<p>👇 This is the JSON you need to copy paste in the Data Generator</p>
+<pre class="bg-black w-96 mt-3 mb-3 ml-6"><code class="text-white">{JSON.stringify(JSON.parse(jsonchema), null, 4)}</code></pre>
 <p>Note: you can edit the Tinybird Settings in the Data Generator page, or repeat the same process use the following links:</p>
 <pre>
   <a class="underline" href={`${dgUrlCarts}&schema=${lzma}`} target="_blank">link for Carts</a>
   <a class="underline" href={`${dgUrlSales}&schema=${lzma}`} target="_blank">link for Sales</a>
 </pre>
 {/await}
+</div>

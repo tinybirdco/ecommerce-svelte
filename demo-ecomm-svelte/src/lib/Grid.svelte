@@ -20,7 +20,7 @@
         price={product.price || 100}
         imageSrc={product.photo}
       />
-      <p class="absolute bottom-0 right-0 p-3 text-sm bg-light/60 rounded-tl padding">
+      <p class="absolute m-0 bottom-0 right-0 p-3 text-sm bg-light/60 rounded-tl padding">
         {product.total || 0} {ranking}
       </p>
       <div class="absolute bottom-0 left-0 p-3">
