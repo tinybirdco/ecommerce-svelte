@@ -5,35 +5,6 @@
   export let price = '';
   export let href = '';
   export let priority = 'lazy';
-  //check images https://youtu.be/ydR_M0fw9Xc?t=2046
-  /*
-
-  .gallery {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 20px 10px;
-  min-width: 300px;
-}
-
-  .gallery img {
-  width: 100%;
-  max-width: 350px;
-  height: 300px;
-  object-fit: cover;
-  border-radius: 10px;
-}
-
-.gallery::after {
-  content: "";
-  width: 350px;
-}
-  */
-
   let hover = false;
 </script>
 
@@ -46,7 +17,7 @@
   }}
   class="h-full w-full overflow-hidden rounded-lg"
 >
-  <a data-test="grid-tile" href={href} sveltekit:prefetch class="relative flex items-center justify-center">
+  <a data-test="grid-tile" href={href} sveltekit:prefetch class="cursor-default	relative flex items-center justify-center">
     <img
       alt={title}
       class={` object-cover transition duration-300 ease-in-out ${
@@ -62,7 +33,7 @@
         <div class="p-3 mb-4 text-2xl font-medium text-svelteOrange backdrop-blur bg-light/50 rounded-br">
           {title}
         </div>
-        <div class="w-fit p-3 text-sm bg-light/60 rounded-r shadow-xl padding">
+        <div class="w-fit p-3 text-sm bg-light/60 rounded-r shadow-xl padding text-dark">
           ${price}
         </div>
       </div>

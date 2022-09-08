@@ -83,13 +83,13 @@
 			<div>
 				<div class="lg:text-2xl">
 					Demo app to showcase the value of realtime personalization with a simple use case.<br>
-					<a href="/about" class="mt-4 font-bold text-svelteOrange hover:text-svelteDark lg:text-2xl">
+					<a href="/about" class="no-underline mt-4 font-bold text-svelteOrange hover:text-svelteDark lg:text-2xl">
 						Check how it works here.
 					</a>
 				</div>
-				<div class="lg:text-2xl">
+				<div class="mt-2 lg:text-2xl">
 					You can use Tinybird Data Generator to simulate higher traffic.
-					<a href="/generate-data" class="mt-4 font-bold text-svelteOrange hover:text-svelteDark lg:text-2xl">
+					<a href="/generate-data" class="no-underline mt-4 font-bold text-svelteOrange hover:text-svelteDark lg:text-2xl">
 						Guide here.
 					</a>
 				</div>

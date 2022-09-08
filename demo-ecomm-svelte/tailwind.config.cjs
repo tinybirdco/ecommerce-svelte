@@ -12,6 +12,7 @@ module.exports = {
         'tbHeaderBlue': '#25283d',
         'tbTextGrey': '#3f4154',
         'tbTextLightGrey': '#717380',
+        'tbGreen': '#1fcc83',
       },
     }
   },
