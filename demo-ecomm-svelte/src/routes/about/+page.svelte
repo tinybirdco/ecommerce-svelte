@@ -4,6 +4,7 @@ import GridTile from "../../lib/GridTile.svelte";
 
 	const tbDashboardToken = import.meta.env.VITE_WEB_DASHBOARD_TOKEN;
 	const tbTrackerHost = import.meta.env.VITE_WEB_TRACKER_HOST;
+	const token = import.meta.env.VITE_TB_READ_TOKEN;
 </script>
 
 <div class="m-4">
@@ -11,7 +12,7 @@ import GridTile from "../../lib/GridTile.svelte";
 <h1>Ecommerce Demo App used for Tinybird demos</h1>
 
 <p>
-  Some of our customers use Tinybrd to personalize the user experence in real time, being <a class="underline" href="https://medium.com/hotel-tech-stories/the-hotels-network-goes-real-time-adb748b6b124" target="_blank">THN</a>
+  Some of our customers use Tinybird to personalize the user experence in real time, being <a class="underline" href="https://medium.com/hotel-tech-stories/the-hotels-network-goes-real-time-adb748b6b124" target="_blank">THN</a>
 	 and <a class="underline" href="https://www.tinybird.co/case-studies/daily-dev-relies-on-tinybird-to-keep-devs-up-to-date-on-the-best-developer-news" target="_blank">Daily.dev</a> two great examples of this.
 	</p>
 <p>
@@ -28,6 +29,11 @@ import GridTile from "../../lib/GridTile.svelte";
 </p>
 <p>
 	Regarding the App, note this is a demo. The calls to api.tinybird.co should probably be in an Svelte endpoint, the environment variables are publicly shown... However, all feedback is more than welcome.<br>
+</p>
+
+<h2>eCommerce Analytics Dashboard</h2>
+<p>
+	Another common Tinybird use case is Operational Intelligence. The same data being used to rank products in the store is valuable information for the business. Capturing this data and presenting it to the organization in a <a class="underline" href="https://pocs.tinybird.co/commerce-ufa?token={token}" target="_blank">real-time dashboard</a> enables data-driven decisions.
 </p>
 
 <h2>Web Analytics Tracker</h2>

@@ -20,21 +20,17 @@ SQL >
 
     %
     SELECT
-            product,
-            count() AS total
-        {%if defined(ranking) and ranking=='views'%}
-        FROM views
-        {%elif defined(ranking) and ranking=='carts'%}
-        FROM carts
-        {%else%}
-        FROM sales
-        {%end%}
-        WHERE product IN (
-            SELECT id from filter_prods
-          )
+        product,
+        {% if defined(ranking) and ranking == "views" %} countIf(event == 'view')
+        {% elif defined(ranking) and ranking == "carts" %} countIf(event == 'cart')
+        {% else %} countIf(event == 'sale')
+        {% end %} AS total
+    FROM web_events
+    WHERE
+        product IN (SELECT id from filter_prods)
         AND toDateTime(datetime) > now() - interval 12 hour
-        GROUP BY product
-        ORDER BY total DESC
+    GROUP BY product
+    ORDER BY total DESC
 
 
 

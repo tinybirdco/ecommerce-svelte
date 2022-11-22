@@ -1,9 +1,0 @@
-TOKEN append_token APPEND
-
-SCHEMA >
-    `datetime` DateTime `json:$.datetime`,
-    `product` String `json:$.product`
-
-ENGINE "MergeTree"
-ENGINE_PARTITION_KEY "toYYYYMM(datetime)"
-ENGINE_SORTING_KEY "product, datetime"

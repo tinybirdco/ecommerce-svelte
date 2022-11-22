@@ -93,6 +93,12 @@
 						Guide here.
 					</a>
 				</div>
+				<div class="mt-2 lg:text-2xl">
+					View the eCommerce Analytics 
+					<a href="https://pocs.tinybird.co/commerce-ufa?token={token}" class="no-underline mt-4 font-bold text-svelteOrange hover:text-svelteDark lg:text-2xl">
+						Dashboard here.
+					</a>
+				</div>
 			</div>
 		</div>
 	</section>
