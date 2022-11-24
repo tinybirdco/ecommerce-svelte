@@ -1,17 +1,15 @@
-TOKEN read_ranking_token READ
-
 NODE filter_prods
 SQL >
 
     %
-    SELECT * FROM prods
-    where 1
-    {%if defined(id_param)%}
-    and id = {{String(id_param)}}
-    {%end%}
-    {%if defined(category) and category != 'all'%}
-    and category = {{String(category)}}
-    {%end%}
+    SELECT *
+    FROM prods
+    WHERE
+        1
+        {% if defined(id_param) %} and id = {{ String(id_param) }} {% end %}
+        {% if defined(category) and category != "all" %}
+            and category = {{ String(category) }}
+        {% end %}
 
 
 
@@ -19,30 +17,25 @@ NODE hits
 SQL >
 
     %
-    SELECT
-        product,
-        {% if defined(ranking) and ranking == "views" %} countIf(event == 'view')
-        {% elif defined(ranking) and ranking == "carts" %} countIf(event == 'cart')
-        {% else %} countIf(event == 'sale')
-        {% end %} AS total
+    SELECT product, count() AS total
     FROM web_events
     WHERE
         product IN (SELECT id from filter_prods)
-        AND toDateTime(datetime) > now() - interval 12 hour
+        {% if defined(ranking) and ranking == "views" %} and event = 'view'
+        {% elif defined(ranking) and ranking == "carts" %} and event = 'cart'
+        {% else %} and event = 'sale'
+        {% end %} AND toDateTime(datetime) > now() - interval 2 hour
     GROUP BY product
     ORDER BY total DESC
-
 
 
 
 NODE endpoint
 SQL >
 
-    SELECT 
-      p.id id, p.name name, p.photo photo, h.total total, p.price price
-    FROM filter_prods p 
-    left join hits h
-    on p.id = h.product
+    SELECT p.id id, p.name name, p.photo photo, h.total total, p.price price
+    FROM filter_prods p
+    left join hits h on p.id = h.product
     order by total desc
 
 
