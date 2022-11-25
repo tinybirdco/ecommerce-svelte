@@ -1,0 +1,34 @@
+NODE products_
+SQL >
+
+    SELECT 'All' as id, 'All' as value
+    UNION ALL
+    SELECT id, name FROM prods
+
+
+
+NODE kpis_
+SQL >
+
+    SELECT 'sales' as value
+    UNION ALL
+    SELECT 'carts' as value
+    UNION ALL
+    SELECT 'views' as value
+
+
+
+NODE endpoint
+SQL >
+
+    %
+    {% if not defined(filter) %}
+      {{ error('filter (String) query param is required and must be product or value') }}
+    {% end %}
+
+    SELECT
+    {% if filter == 'product' %} id, value FROM products_
+    {% else %} value FROM kpis_
+    {% end %}
+
+

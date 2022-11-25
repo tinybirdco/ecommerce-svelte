@@ -2,9 +2,9 @@
   import GridTile from '$lib/GridTile.svelte';
   import { sendEvents } from '../utils/tb.js';
   const demoButtons = [
-    {name: 'views', icon: '👁️' },
-    {name: 'carts', icon: '🛒' },
-    {name: 'sales', icon: '💳' },
+    {name: 'view', icon: '👁️' },
+    {name: 'cart', icon: '🛒' },
+    {name: 'sale', icon: '💳' },
   ]
   export let ranking;
   export let products;
@@ -25,7 +25,7 @@
       </p>
       <div class="absolute bottom-0 left-0 p-3">
         {#each demoButtons as demoButton}
-        <button class="mr-1 text-sm bg-light/80 border-2 border-light/40 shadow-xl w-8 h-8 rounded-full" on:click={()=>sendEvents([{'product': product.id}], demoButton.name, tbAppendToken )}> {demoButton.icon} </button>
+        <button class="mr-1 text-sm bg-light/80 border-2 border-light/40 shadow-xl w-8 h-8 rounded-full" on:click={()=>sendEvents([{'product': product.id, 'event': demoButton.name}], 'web_events', tbAppendToken )}> {demoButton.icon} </button>
         {/each}
       </div>
     </div>

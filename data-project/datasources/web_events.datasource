@@ -1,0 +1,13 @@
+TOKEN append_token APPEND
+
+DESCRIPTION >
+    [Data Generator](https://data-generator-v2-tinybird.vercel.app/?host=eu_gcp&token=p.eyJ1IjogIjQ3YWE5NjU0LWRmNmEtNDYzYy04ZjdiLWYxN2M1ODVhMjM3OCIsICJpZCI6ICI2MGJjYjZjOC00M2U1LTRjODYtYTE5Yy1kMWM3NmVjNGZkZTUifQ.zVV1OIHYl4nTO26o1eC0bBgafTPbcXN041Ktt2aGL8o&datasource=web_events&eps=997&schema=XQAAAAI2AQAAAAAAAABtAEI0c5FduxL22_ChDljPI_EIJf0Q7TViaBMFAihUkhUZYtDMM1sWSg4cJc6-XQQq9BHVhGtnx2o3aC3HgYX7kpzrqDfh8VWRudTPGLNUNeKjj5tVO9TkcvyohvbHIYJsL8dbpqbtJGd5TbyiLlFxvqYaDWybWZICGcNNR1YK71xNl3n4TwVclHc4Qdpgvy3uEwGrvnfc6-MeVSRGxxS2o7szud_o1zULira50OBkcwGhpK2oDeMGxDSKLYjiawlqfAoaPo3F-sfuCJC_bdj2EMYAwUwCKF0ZCjGO_9zoXCA)
+
+SCHEMA >
+    `datetime` DateTime `json:$.datetime`,
+    `event` String `json:$.event`,
+    `product` String `json:$.product`
+
+ENGINE "MergeTree"
+ENGINE_PARTITION_KEY "toYear(datetime)"
+ENGINE_SORTING_KEY "event, product, datetime"
