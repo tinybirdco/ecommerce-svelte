@@ -1,3 +1,17 @@
+NODE filter_prods
+SQL >
+
+    %
+    SELECT *
+    FROM prods
+    WHERE
+        1
+        {% if defined(prod_id) and prod_id != "All" %}
+            AND id = {{ String(prod_id) }}
+        {% end %}
+
+
+
 NODE endpoint
 SQL >
 
@@ -11,23 +25,13 @@ SQL >
         countIfMerge(n_views) n_views,
         countIfMerge(n_carts) n_carts
     FROM
-    {% if hrs > 6 %}
-            events_by_day_mv
-        JOIN prods ON product = id
-        WHERE ts >= toStartOfDay(now() - interval {{ UInt16(hours_param, 6, description="Hours to go back") }} hour)
-    {% elif hrs > 2 %}
-            events_by_hour_mv
-        JOIN prods ON product = id
-        WHERE ts >= now() - interval {{ UInt16(hours_param, 6, description="Hours to go back") }} hour
-    {% else %}
-            events_by_min_mv
-        JOIN prods ON product = id
-        WHERE ts >= now() - interval {{ UInt16(hours_param, 6, description="Hours to go back") }} hour
-    {% end %}
-
-        {% if defined(prod_id) and prod_id != "All" %}
-            AND product = {{ String(prod_id, "Fg15LdqpWrs", description="Product ID param") }}
+        {% if hrs > 24 %} events_by_day_mv
+        {% elif hrs > 3 %} events_by_hour_mv
+        {% else %} events_by_min_mv
         {% end %}
+    JOIN filter_prods ON product = id
+    WHERE
+        ts >= now() - interval {{ UInt16(hours_param, 6, description="Hours to go back") }} hour
     GROUP BY name, price
     ORDER BY n_sales desc
 
