@@ -1,3 +1,5 @@
+TOKEN read_ranking_token READ
+
 NODE filter_prods
 SQL >
 
