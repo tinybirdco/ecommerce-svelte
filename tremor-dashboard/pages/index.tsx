@@ -161,27 +161,23 @@ export default function KpiCardGrid() {
         Built with <Bold><a href='https://www.tremor.so/'>Tremor</a></Bold> and these <Bold><a href={`https://api.tinybird.co/endpoints?token=${token}`} target='blank'>API Endpoints</a></Bold>.
       </Text>
 
-      <Flex justifyContent="justify-around"
-        alignItems="items-center"
-        marginTop='mt-2'
-      >
-
+      <ColGrid numColsSm={1} numColsMd={2} numColsLg={4} marginTop="mt-2" gapX="gap-x-4" gapY="gap-y-4">
         <Block>
           <Text>Hours</Text>
           <input
-            className="bg-slate-50 m-2 pl-2 w-12"
+            className="mt-2 px-4 py-2 w-16 tr-bg-white rounded-md shadow-sm border border-gray-300 text-gray-700 bg-white hover:bg-gray-50 focus:ring-blue-300 focus:ring-2 focus:outline-0 text-sm"
             value={hoursParam}
             onChange={handleInputhoursParamChange}
-          ></input>
+          />
         </Block>
 
         <Block>
           <Text>Token</Text>
           <input
-            className="bg-slate-50 m-2 pl-2"
+            className="mt-2 px-4 py-2 min-w-16 tr-bg-white rounded-md shadow-sm border border-gray-300 text-gray-700 bg-white hover:bg-gray-50 focus:ring-blue-300 focus:ring-2 focus:outline-0 text-sm"
             value={token}
             onChange={handleInputTokenChange}
-          ></input>
+          />
         </Block>
 
         {/* Category Dropdown */}
@@ -225,9 +221,7 @@ export default function KpiCardGrid() {
         </Block>
         {/* Tried this approach but is not working */}
         {/* <DropDownTbFilter filter={Array.from(products)} setState={setProduct}/> */}
-      </Flex>
-
-
+      </ColGrid>
 
       <TabList defaultValue={1} handleSelect={(value) => setSelectedView(value)} marginTop="mt-2">
         <Tab value={1} text="Overview" />
@@ -307,7 +301,7 @@ export default function KpiCardGrid() {
             <Block>
               <Card>
                 <Title>Product Ranking</Title>
-                {prodsRanking.length > 0 ? (
+                {prodsRanking && prodsRanking.length > 0 ? (
                   <BarChart
                     data={prodsRanking}
                     dataKey="name"
