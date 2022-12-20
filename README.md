@@ -2,7 +2,12 @@
 
 This repo contains an ecommerce demo tho show a very basic[^1] example of real time personalization using Tinybird to ingest data, transform it, and publish endpoints.
 
-It is deliberatedly simple –just 9 products, no Materialized Views...– to be quickly showable in a demo.
+It is deliberatedly simple to be quickly showable in a demo.
+
+You can visit the deployed apps here:
+
+- [Svelte ecommerce](https://ecommerce-svelte-rho.vercel.app/)
+- [Tremor dashboard](https://ecommerce-svelte-tremor-dashboard.vercel.app/)
 
 ## Create the Tinybird workspace
 
@@ -24,8 +29,8 @@ Follow the [Starter Kit README](https://github.com/tinybirdco/web-analytics-star
 
 ```html
 <svelte:head>
-	<title>Home - SvelteKit Commerce</title>
-	<script src="https://unpkg.com/@tinybirdco/flock.js" data-token="YOUR_TRACKER_TOKEN"></script>
+  <title>Home - SvelteKit Commerce</title>
+  <script src="https://unpkg.com/@tinybirdco/flock.js" data-token="YOUR_TRACKER_TOKEN"></script>
 </svelte:head>
 ```
 

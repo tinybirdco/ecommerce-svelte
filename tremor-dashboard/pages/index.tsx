@@ -19,7 +19,8 @@ import {
   TableBody,
   TableHeaderCell,
   TableRow,
-  TableCell
+  TableCell,
+  TextInput
 } from '@tremor/react';
 import KpiCard from '../components/KpiCard';
 import DropDownTbFilter from '../components/DropDownTbFilter';
@@ -99,7 +100,7 @@ export default function KpiCardGrid() {
   }
 
   const handleInputhoursParamChange = (event: { target: { value: SetStateAction<string>; }; }) => {
-    setHoursParam(Number.isInteger(Number(event.target.value)) ? event.target.value : '0')
+    setHoursParam(event.target.value)
   }
 
   const handleCategoryChange = (value: SetStateAction<string>) => {
@@ -161,22 +162,26 @@ export default function KpiCardGrid() {
         Built with <Bold><a href='https://www.tremor.so/'>Tremor</a></Bold> and these <Bold><a href={`https://api.tinybird.co/endpoints?token=${token}`} target='blank'>API Endpoints</a></Bold>.
       </Text>
 
-      <ColGrid numColsSm={1} numColsMd={2} numColsLg={4} marginTop="mt-2" gapX="gap-x-4" gapY="gap-y-4">
+      <ColGrid numColsSm={2} numColsMd={4}  gapX="gap-x-6" gapY="gap-y-6" marginTop="mt-3">
         <Block>
           <Text>Hours</Text>
-          <input
-            className="mt-2 px-4 py-2 w-16 tr-bg-white rounded-md shadow-sm border border-gray-300 text-gray-700 bg-white hover:bg-gray-50 focus:ring-blue-300 focus:ring-2 focus:outline-0 text-sm"
+          <TextInput
             value={hoursParam}
             onChange={handleInputhoursParamChange}
+            error={isNaN(parseInt(hoursParam))}
+            errorMessage="Please input an integer"
+            maxWidth="max-w-xs"
+            marginTop="mt-2"
           />
         </Block>
 
         <Block>
           <Text>Token</Text>
-          <input
-            className="mt-2 px-4 py-2 min-w-16 tr-bg-white rounded-md shadow-sm border border-gray-300 text-gray-700 bg-white hover:bg-gray-50 focus:ring-blue-300 focus:ring-2 focus:outline-0 text-sm"
+          <TextInput
             value={token}
             onChange={handleInputTokenChange}
+            maxWidth="max-w-xs"
+            marginTop="mt-2"
           />
         </Block>
 
@@ -222,6 +227,7 @@ export default function KpiCardGrid() {
         {/* Tried this approach but is not working */}
         {/* <DropDownTbFilter filter={Array.from(products)} setState={setProduct}/> */}
       </ColGrid>
+
 
       <TabList defaultValue={1} handleSelect={(value) => setSelectedView(value)} marginTop="mt-2">
         <Tab value={1} text="Overview" />
