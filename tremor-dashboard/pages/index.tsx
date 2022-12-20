@@ -19,7 +19,8 @@ import {
   TableBody,
   TableHeaderCell,
   TableRow,
-  TableCell
+  TableCell,
+  TextInput
 } from '@tremor/react';
 import KpiCard from '../components/KpiCard';
 import DropDownTbFilter from '../components/DropDownTbFilter';
@@ -99,7 +100,7 @@ export default function KpiCardGrid() {
   }
 
   const handleInputhoursParamChange = (event: { target: { value: SetStateAction<string>; }; }) => {
-    setHoursParam(Number.isInteger(Number(event.target.value)) ? event.target.value : '0')
+    setHoursParam(event.target.value)
   }
 
   const handleCategoryChange = (value: SetStateAction<string>) => {
@@ -161,27 +162,27 @@ export default function KpiCardGrid() {
         Built with <Bold><a href='https://www.tremor.so/'>Tremor</a></Bold> and these <Bold><a href={`https://api.tinybird.co/endpoints?token=${token}`} target='blank'>API Endpoints</a></Bold>.
       </Text>
 
-      <Flex justifyContent="justify-around"
-        alignItems="items-center"
-        marginTop='mt-2'
-      >
-
+      <ColGrid numColsSm={2} numColsMd={4}  gapX="gap-x-6" gapY="gap-y-6" marginTop="mt-3">
         <Block>
           <Text>Hours</Text>
-          <input
-            className="bg-slate-50 m-2 pl-2 w-12"
+          <TextInput
             value={hoursParam}
             onChange={handleInputhoursParamChange}
-          ></input>
+            error={isNaN(parseInt(hoursParam))}
+            errorMessage="Please input an integer"
+            maxWidth="max-w-xs"
+            marginTop="mt-2"
+          />
         </Block>
 
         <Block>
           <Text>Token</Text>
-          <input
-            className="bg-slate-50 m-2 pl-2"
+          <TextInput
             value={token}
             onChange={handleInputTokenChange}
-          ></input>
+            maxWidth="max-w-xs"
+            marginTop="mt-2"
+          />
         </Block>
 
         {/* Category Dropdown */}
@@ -225,7 +226,7 @@ export default function KpiCardGrid() {
         </Block>
         {/* Tried this approach but is not working */}
         {/* <DropDownTbFilter filter={Array.from(products)} setState={setProduct}/> */}
-      </Flex>
+      </ColGrid>
 
 
 
