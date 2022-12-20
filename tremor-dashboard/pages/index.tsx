@@ -229,7 +229,6 @@ export default function KpiCardGrid() {
       </ColGrid>
 
 
-
       <TabList defaultValue={1} handleSelect={(value) => setSelectedView(value)} marginTop="mt-2">
         <Tab value={1} text="Overview" />
         <Tab value={2} text="Detail" />
@@ -308,7 +307,7 @@ export default function KpiCardGrid() {
             <Block>
               <Card>
                 <Title>Product Ranking</Title>
-                {prodsRanking.length > 0 ? (
+                {prodsRanking && prodsRanking.length > 0 ? (
                   <BarChart
                     data={prodsRanking}
                     dataKey="name"
