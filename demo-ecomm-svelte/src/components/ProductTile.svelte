@@ -12,41 +12,47 @@
 </script>
 
 <div data-test="grid-tile" class="flex-[0_0_336px] flex flex-col group overflow-clip relative">
-  <div class="absolute right-0 z-10 p-3">
-    {#each demoButtons as demoButton}
-      <button
-        class="w-8 h-8 mr-1 text-sm border-2 rounded-full shadow-xl bg-light/80 border-light/40"
-        on:click={() =>
-          sendEvents(
-            [{ product: product.id, event: demoButton.name }],
-            'web_events',
-            tbAppendToken
-          )}
-      >
-        {demoButton.icon}
-      </button>
-    {/each}
+  <div
+    class="absolute left-0 right-0 z-10 flex items-center justify-between invisible p-3 transition-all duration-300 ease-in-out backdrop-blur-lg group-hover:visible"
+  >
+    <div class="flex items-center">
+      {#each demoButtons as demoButton}
+        <button
+          class="w-8 h-8 mr-1 text-sm border-2 rounded-full shadow-xl bg-light/80 border-light/40"
+          on:click={() =>
+            sendEvents(
+              [{ product: product.id, event: demoButton.name }],
+              'web_events',
+              tbAppendToken
+            )}
+        >
+          {demoButton.icon}
+        </button>
+      {/each}
+    </div>
+
+    <p class="m-0 text-sm font-medium text-svelteOrange">
+      {product.total || 0}
+      {ranking}
+    </p>
   </div>
 
   <img
     alt={product.name}
-    class="object-cover transition duration-300 ease-in-out group-hover:scale-110 w-[336px] h-[450px]"
+    class="object-cover transition-all duration-300 ease-in-out group-hover:scale-110 w-[336px] h-[336px]"
     fetchpriority={priority === 'eager' ? 'high' : 'low'}
     decoding="async"
     loading={priority}
     src={product.photo}
   />
 
-  <p class="mt-6 mb-2 font-semibold uppercase">{product.name}</p>
+  <div
+    class="absolute bottom-0 left-0 right-0 flex items-center justify-between py-2 bg-black/70 backdrop-blur-lg"
+  >
+    <p class="my-0 font-semibold text-white uppercase truncate whitespace-nowrap">{product.name}</p>
 
-  <div class="flex items-center justify-between px-4">
-    <p class="m-0 text-xs font-medium">
+    <p class="my-0 text-sm font-medium text-white">
       ${product.price ?? 100}
-    </p>
-
-    <p class="m-0 text-sm">
-      {product.total || 0}
-      {ranking}
     </p>
   </div>
 </div>
