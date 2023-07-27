@@ -18,7 +18,7 @@
     <div class="flex items-center">
       {#each demoButtons as demoButton}
         <button
-          class="w-8 h-8 mr-1 text-sm border-2 rounded-full shadow-xl bg-light/80 border-light/40"
+          class="w-8 h-8 mr-1 text-sm border-2 rounded-full shadow-xl bg-light/80 border-light/40 hover:animate-pulse"
           on:click={() =>
             sendEvents(
               [{ product: product.id, event: demoButton.name }],
