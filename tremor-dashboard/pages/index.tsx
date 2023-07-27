@@ -323,7 +323,7 @@ export default function KpiCardGrid() {
                 className="max-w-xs mt-2"
               />
               <Button
-                className="absolute bottom-0 right-[70px]"
+                className="absolute bottom-0 xl:left-[234px] lg:left-[134px] md:-right-[109px] md:left-auto lg:right-auto left-[234px]"
                 size="sm"
                 type="button"
                 onClick={handleRefresh}
