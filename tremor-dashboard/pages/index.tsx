@@ -229,7 +229,7 @@ export default function KpiCardGrid() {
       <Head>
         <title>eCommerce Analytics</title>
       </Head>
-      <main className="h-screen p-6 bg-slate-50 sm:p-10">
+      <main className="h-screen p-6 sm:p-10">
         <Title>eCommerce Analytics</Title>
         <Text className="mt-1">
           Analytics for the{" "}
@@ -387,8 +387,8 @@ export default function KpiCardGrid() {
               </Grid>
             </TabPanel>
 
-            <TabPanel>
-              <div className="mt-3">
+            <TabPanel className="py-3">
+              <div>
                 <Text>Sort by</Text>
                 <Select
                   onValueChange={setKpiRanking}
