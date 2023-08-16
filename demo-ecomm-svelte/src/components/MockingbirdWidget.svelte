@@ -55,8 +55,8 @@
         endpoint,
         token: tbAppendToken,
         datasource: 'web_events',
-        eps: 10,
-        limit: -1
+        eps: 987,
+        limit: 1000000
       });
 
       if (!worker) return;
