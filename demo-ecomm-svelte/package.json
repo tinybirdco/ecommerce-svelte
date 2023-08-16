@@ -20,6 +20,7 @@
 		"prettier": "^2.6.2",
 		"prettier-plugin-svelte": "^2.7.0",
 		"svelte": "^3.44.0",
+		"svelte-popover": "^2.0.8",
 		"svelte-preprocess": "^4.10.7",
 		"tailwindcss": "^3.1.8",
 		"vite": "^3.0.4"
@@ -27,6 +28,6 @@
 	"type": "module",
 	"dependencies": {
 		"@babel/runtime": "^7.19.0",
-		"json-url": "^3.0.0"
+		"@tinybirdco/mockingbird": "^1.1.1"
 	}
 }

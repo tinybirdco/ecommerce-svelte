@@ -1,4 +1,4 @@
-import { Block, Card, Flex, Metric, Text } from "@tremor/react";
+import { Card, Flex, Metric, Text } from "@tremor/react";
 
 type KpiCardProps = {
   title: string;
@@ -13,14 +13,14 @@ export default function KpiCard({
   prefix = "",
 }: KpiCardProps) {
   return (
-    <Card maxWidth="max-w-sm">
-      <Flex alignItems="items-start">
-        <Block>
+    <Card className="max-w-sm">
+      <Flex className="items-start">
+        <div>
           <Text>{title}</Text>
-          <Metric truncate={true}>
+          <Metric className="truncate">
             {prefix} {metric}
           </Metric>
-        </Block>
+        </div>
       </Flex>
     </Card>
   );

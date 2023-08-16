@@ -1,7 +1,6 @@
 <main class="m-4">
   <h1 class="m-2 font-12">Pending tasks</h1>
   <ul class="m-2 ml-6 list-decimal">
-    <li>Add the JSON to DG2 as default</li>
     <li>GA Starter Kit custom events. Basic config explained in <a class="underline" href="https://github.com/tinybirdco/ecommerce-svelte#using-the-tinybird-web-analytics-starter-kit" target="_blank">Readme</a> and <a class="underline" href="/about">/about page</a></li>
     <li>Landing Datasource and Materialized Views to separate from different actions (view, cart, sale)</li>
     <li>Product page</li>
