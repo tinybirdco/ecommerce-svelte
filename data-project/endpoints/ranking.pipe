@@ -1,11 +1,18 @@
-TOKEN read_ranking_token READ
+DESCRIPTION >
+	Top products by view, cart or sale from web events enriched with product dimensions
+
+
+TOKEN "read_ranking_token" READ
+
+TOKEN "test_ranking_token" READ
+
 
 NODE filter_prods
 SQL >
 
     %
     SELECT *
-    FROM prods
+    FROM bq_prods
     WHERE
         1
         {% if defined(id_param) %} and id = {{ String(id_param) }} {% end %}
@@ -26,7 +33,7 @@ SQL >
         {% if defined(ranking) and ranking == "views" %} and event = 'view'
         {% elif defined(ranking) and ranking == "carts" %} and event = 'cart'
         {% else %} and event = 'sale'
-        {% end %} AND toDateTime(datetime) > now() - interval 2 hour
+        {% end %} AND toDateTime(datetime) > now() - interval 1 hour
     GROUP BY product
     ORDER BY total DESC
 

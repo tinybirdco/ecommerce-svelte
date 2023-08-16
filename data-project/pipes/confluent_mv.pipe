@@ -1,0 +1,9 @@
+NODE mv
+SQL >
+
+    SELECT datetime, event, product FROM confluent_events
+
+TYPE materialized
+DATASOURCE web_events
+
+

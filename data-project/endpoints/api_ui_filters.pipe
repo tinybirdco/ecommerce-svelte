@@ -1,4 +1,11 @@
-TOKEN dashboard READ
+TOKEN "read_ranking_token" READ
+
+TOKEN "api_ui_filters_endpoint_read_0989" READ
+
+TOKEN "commerce_UFA" READ
+
+TOKEN "commerce_UFA_filter" READ
+
 
 NODE products_
 SQL >
@@ -6,7 +13,7 @@ SQL >
     %
     SELECT 'All' as id, 'All' as value
     UNION ALL
-    SELECT id, name FROM prods
+    SELECT id, name FROM bq_prods
     {%if defined(category) and category !='all'%}
     where category = {{String(category, description="product category", required=True)}}
     {%end%}
