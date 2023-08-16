@@ -9,7 +9,7 @@ SQL >
 
     %
     SELECT *
-    FROM product_details
+    FROM bq_prods
     WHERE
         1
         {% if defined(prod_id) and prod_id != "All" %}

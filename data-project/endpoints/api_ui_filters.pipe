@@ -12,7 +12,7 @@ SQL >
     %
     SELECT 'All' as id, 'All' as value
     UNION ALL
-    SELECT id, name FROM product_details
+    SELECT id, name FROM bq_prods
     {%if defined(category) and category !='all'%}
     where category = {{String(category, description="product category", required=True)}}
     {%end%}
