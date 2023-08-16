@@ -15,7 +15,5 @@ SQL >
 
 TYPE materialized
 DATASOURCE events_by_min_mv
-ENGINE "AggregatingMergeTree"
-ENGINE_PARTITION_KEY "toYYYYMM(ts)"
-ENGINE_SORTING_KEY "ts, product"
+
 

@@ -1,13 +1,24 @@
+TOKEN "read_ranking_token" READ
+
+TOKEN "commerce_UFA" READ
+
+TOKEN "api_views_trend_endpoint_read_8414" READ
+
+TOKEN "commerce_UFA_filter" READ
+
 NODE filter_prods
 SQL >
 
     %
     SELECT *
-    FROM prods
+    FROM product_details
     WHERE
         1
         {% if defined(prod_id) and prod_id != "All" %}
             AND id = {{ String(prod_id) }}
+        {% end %}
+        {% if defined(category) and category != "all" %}
+            and category = {{ String(category) }}
         {% end %}
 
 

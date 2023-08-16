@@ -1,0 +1,11 @@
+TOKEN "feather_endpoint_test_endpoint_read_8727" READ
+
+NODE endpoint
+SQL >
+
+    SELECT toStartOfMinute(datetime) d, event, count() as hits FROM web_events
+    where d > now() - interval 3 hour 
+    GROUP BY d, event
+    order by d desc
+
+

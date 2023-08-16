@@ -1,13 +1,24 @@
+TOKEN "read_ranking_token" READ
+
+TOKEN "commerce_UFA" READ
+
+TOKEN "api_ufa_prods_endpoint_read_6794" READ
+
+TOKEN "commerce_UFA_filter" READ
+
 NODE filter_prods
 SQL >
 
     %
     SELECT *
-    FROM prods
+    FROM product_details
     WHERE
         1
         {% if defined(prod_id) and prod_id != "All" %}
             AND id = {{ String(prod_id) }}
+        {% end %}
+        {% if defined(category) and category != "all" %}
+            and category = {{ String(category) }}
         {% end %}
 
 
@@ -33,6 +44,12 @@ SQL >
     WHERE
         ts >= now() - interval {{ UInt16(hours_param, 6, description="Hours to go back") }} hour
     GROUP BY name, price
-    ORDER BY n_sales desc
+    --ORDER BY n_sales desc
+    ORDER BY
+        {% if kpi_ranking == "sales" %} n_sales
+        {% elif kpi_ranking == "carts" %} n_carts
+        {% else %} n_views
+        {% end %}
+        DESC
 
 
