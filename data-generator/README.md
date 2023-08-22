@@ -7,7 +7,7 @@ This code represents a Kafka producer for generating random e-commerce events, i
 To install the required packages, run:
 
 ```bash
-pip3 install click confluent-kafka faker dotenv
+pip3 install click confluent-kafka faker python-dotenv
 
 ```
 
