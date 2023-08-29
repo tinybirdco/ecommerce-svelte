@@ -13,7 +13,7 @@
 
 <div data-test="grid-tile" class="flex-[0_0_336px] flex flex-col group overflow-clip relative">
   <div
-    class="absolute left-0 right-0 z-10 flex items-center justify-between invisible p-3 transition-all duration-300 ease-in-out backdrop-blur-lg group-hover:visible"
+    class="absolute left-0 right-0 z-10 flex items-center justify-between p-3 backdrop-blur-lg"
   >
     <div class="flex items-center">
       {#each demoButtons as demoButton}
