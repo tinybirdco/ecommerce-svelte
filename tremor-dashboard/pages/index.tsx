@@ -56,6 +56,7 @@ export default function KpiCardGrid() {
   const [product, setProduct] = useState("All");
   const [kpiRanking, setKpiRanking] = useState("views");
   const [refreshInterval, setRefreshInterval] = useState(100000);
+  const [aP, setAP] = useState(100000);
 
   const kpisDataQuery = useSWR(
     [hoursParam, category, product],
@@ -146,13 +147,14 @@ export default function KpiCardGrid() {
   );
 
   const viewsCartsTrendDataQuery = useSWR(
-    [hoursParam, token, category, product],
+    [hoursParam, token, category, product, aP],
     () =>
       fetchTinybirdUrl("api_views_carts_trend", {
         hours_param: hoursParam,
         prod_id: product,
         category,
         token,
+        a: aP
       }),
     {
       refreshInterval,
