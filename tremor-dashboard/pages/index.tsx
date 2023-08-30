@@ -56,10 +56,9 @@ export default function KpiCardGrid() {
   const [product, setProduct] = useState("All");
   const [kpiRanking, setKpiRanking] = useState("views");
   const [refreshInterval, setRefreshInterval] = useState(100000);
-  const [aP, setAP] = useState(100000);
 
   const kpisDataQuery = useSWR(
-    [hoursParam, category, product],
+    ["api_kpis", hoursParam, category, product],
     () =>
       fetchTinybirdUrl("api_kpis", {
         hours_param: hoursParam,
@@ -77,11 +76,12 @@ export default function KpiCardGrid() {
           conversion: 0,
         },
       ],
+      revalidateOnFocus: false,
     }
   );
 
   const productsDataQuery = useSWR(
-    [token, category],
+    ["api_ui_filters", token, category],
     () =>
       fetchTinybirdUrl("api_ui_filters", {
         filter: "product",
@@ -128,11 +128,12 @@ export default function KpiCardGrid() {
           value: "Drop the Label T-shirt",
         },
       ],
+      revalidateOnFocus: false,
     }
   );
 
   const revTredDataQuery = useSWR(
-    [hoursParam, token, category, product],
+    ["api_rev_trend", hoursParam, token, category, product],
     () =>
       fetchTinybirdUrl("api_rev_trend", {
         hours_param: hoursParam,
@@ -143,27 +144,29 @@ export default function KpiCardGrid() {
     {
       refreshInterval,
       fallbackData: [],
+      revalidateOnFocus: false,
     }
   );
 
   const viewsCartsTrendDataQuery = useSWR(
-    [hoursParam, token, category, product, aP],
+    ["api_views_carts_trend", hoursParam, token, category, product],
     () =>
       fetchTinybirdUrl("api_views_carts_trend", {
         hours_param: hoursParam,
         prod_id: product,
         category,
         token,
-        a: aP
       }),
     {
       refreshInterval,
       fallbackData: [],
+      revalidateOnFocus: false,
     }
   );
+  console.log(viewsCartsTrendDataQuery);
 
   const prodsRankingDataQuery = useSWR(
-    [hoursParam, token, category, product, kpiRanking],
+    ["api_prods", hoursParam, token, category, product, kpiRanking],
     () =>
       fetchTinybirdUrl("api_prods", {
         hours_param: hoursParam,
@@ -183,6 +186,7 @@ export default function KpiCardGrid() {
           n_sales: "0",
         },
       ],
+      revalidateOnFocus: false,
     }
   );
 
