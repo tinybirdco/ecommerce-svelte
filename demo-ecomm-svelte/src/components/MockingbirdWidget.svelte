@@ -3,17 +3,8 @@
 
   /** @type {import('@tinybirdco/mockingbird').Schema} */
   const schema = {
-    datetime: {
-      type: 'mockingbird.datetimeNow'
-    },
-    event: {
-      type: 'mockingbird.pickWeighted',
-      params: [
-        {
-          values: ['view', 'cart', 'sale'],
-          weights: [60, 33, 24]
-        }
-      ]
+    timestamp: {
+      type: 'mockingbird.timestampNow'
     },
     product: {
       type: 'mockingbird.pick',
@@ -30,6 +21,25 @@
             'Zu7A1GCSjZE',
             'Fg15LdqpWrs'
           ]
+        }
+      ]
+    },
+    store: {
+      type: 'mockingbird.pick',
+      params: [
+        {
+          values: [
+            'ecomm'
+          ]
+        }
+      ]
+    },
+    amount: {
+      type: 'number.int',
+      params: [
+        {
+          min: '-1',
+          max: '-1'
         }
       ]
     }
@@ -54,9 +64,9 @@
         schema,
         endpoint,
         token: tbAppendToken,
-        datasource: 'web_events',
-        eps: 987,
-        limit: 1000000
+        datasource: 'stock_availability',
+        eps: 500,
+        limit: 100000
       });
 
       if (!worker) return;
