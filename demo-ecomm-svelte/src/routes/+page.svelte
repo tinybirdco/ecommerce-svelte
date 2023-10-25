@@ -2,14 +2,16 @@
   import MockingbirdWidget from '../components/MockingbirdWidget.svelte';
   import ProductTile from '../components/ProductTile.svelte';
 
-  let rankingValues = ['sales', 'carts', 'views'];
-  let categoriesValues = ['all', 'short sleeve', 'long sleeve'];
+  let stockValues = ['0', '1'];
+  let rankingValues = ['0', '1'];
+  let categoriesValues = ['all', 'clothing', 'accessories'];
+  let stock = stockValues[0];
   let ranking = rankingValues[0];
   let category = categoriesValues[0];
 
   const token = import.meta.env.VITE_TB_READ_TOKEN;
   const host = import.meta.env.VITE_TB_HOST;
-  $: url = `https://${host}/v0/pipes/ranking.json?token=${token}&category=${category}&ranking=${ranking}`;
+  $: url = `https://${host}/v0/pipes/api_stock_ranking.json?token=${token}&category=${category}&ranking=${ranking}&show_oos=${stock}`;
 
   let products = [];
 
@@ -20,6 +22,11 @@
   }
 
   $: if (url) getSortedProds();
+
+  function handleCategoryChange(event) {
+    category = event.value;
+    getSortedProds();
+  }
 </script>
 
 <main>
@@ -54,13 +61,32 @@
         </label>
       {/each}
 
+      <h1 class="mt-6 text-xl font-semibold">Availability</h1>
+      {#each stockValues as stockValue}
+        <label class="block mt-2 text-sm text-tbTextGrey">
+          <input
+            type="radio"
+            bind:group={stock}
+            name="category"
+            value={stockValue}
+            id={stockValue}
+            class="hidden peer"
+          />
+          <div
+            class="cursor-pointer peer-checked:text-md peer-checked:font-semibold hover:underline"
+          >
+            {stockValue[0].toUpperCase() + stockValue.substring(1)}
+          </div>
+        </label>
+      {/each}
+
       <h1 class="mt-6 text-xl font-semibold">Ranking</h1>
       {#each rankingValues as rankingValue}
         <label class="block mt-2 text-sm text-tbTextGrey">
           <input
             type="radio"
             bind:group={ranking}
-            name="ranking"
+            name="category"
             value={rankingValue}
             id={rankingValue}
             class="hidden peer"
@@ -72,6 +98,7 @@
           </div>
         </label>
       {/each}
+      
     </nav>
     <section class="flex flex-row flex-wrap mx-auto ml-4 gap-y-8 gap-x-4">
       {#each products as product}

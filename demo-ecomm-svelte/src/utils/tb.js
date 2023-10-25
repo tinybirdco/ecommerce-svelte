@@ -1,7 +1,7 @@
 export async function sendEvents(events, dsName, dsAppendToken){
   const date = new Date();
   events.forEach(ev => {
-      ev.datetime = date.toISOString().slice(0, 19)
+      ev.timestamp = date.toISOString().slice(0, 19)
   });
   const headers = {
       'Authorization': `Bearer ${dsAppendToken}`,
