@@ -4,8 +4,8 @@ export const Stock = {
 };
 
 export const Ranking = {
-  mostPopular: '0',
-  leastPopular: '1'
+  price: '0',
+  bestSellers: '1'
 };
 
 export const Category = {

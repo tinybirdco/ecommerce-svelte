@@ -7,7 +7,7 @@
   import { Category, Stock, Ranking } from '../utils/filters';
 
   let stockValues = [Stock.all, Stock.inStock];
-  let rankingValues = [Ranking.mostPopular, Ranking.leastPopular];
+  let rankingValues = [Ranking.bestSellers, Ranking.price];
   let categoryValues = [Category.all, Category.clothing, Category.accessories];
 
   $: category = $page.url.searchParams.get('category') || Category.all;
@@ -53,7 +53,7 @@
             {stockValue === '1' ? 'All' : 'In stock'}
           </a>
         {/each}
-        <h1 class="mt-6 text-xl font-semibold text-secondary">Ranking</h1>
+        <h1 class="mt-6 text-xl font-semibold text-secondary">Sort</h1>
         {#each rankingValues as rankingValue}
           <a
             href={buildFilterUrl({ category, stock, ranking: rankingValue })}
@@ -62,7 +62,7 @@
               rankingValue === ranking ? 'underline' : ''
             }`}
           >
-            {rankingValue === '0' ? 'Most popular' : 'Least popular'}
+            {rankingValue === Ranking.bestSellers ? 'Best sellers' : 'Price'}
           </a>
         {/each}
       </nav>
