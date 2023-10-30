@@ -14,6 +14,6 @@
   {/if}
 </svelte:head>
 
-<div class="min-h-screen">
+<div class="min-h-screen bg-background antialiased text-secondary">
   <slot />
 </div>

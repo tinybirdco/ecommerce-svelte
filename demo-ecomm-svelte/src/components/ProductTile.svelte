@@ -7,9 +7,19 @@
   export let priority = 'lazy';
 </script>
 
-<div data-test="grid-tile" class="flex-[0_0_336px] flex flex-col group overflow-clip relative">
-  <div class="absolute left-0 right-0 z-10 flex items-center justify-between p-3 backdrop-blur-lg">
-    <div class="flex items-center">
+<li data-test="grid-tile" class="group overflow-hidden flex flex-col md:col-span-1">
+  <div class="relative rounded-lg overflow-hidden aspect-[3/4]">
+    <img
+      alt={product.name}
+      class={`duration-300 ease-in-out group-hover:scale-105 md:group-hover:rounded-xl md:transition-all md:duration-500 block absolute h-full w-full object-cover bg-white ${
+        product.stock_status === 2 ? 'grey-out' : ''
+      }`}
+      fetchpriority={priority === 'eager' ? 'high' : 'low'}
+      decoding="async"
+      loading={priority}
+      src={product.photo}
+    />
+    <div class="absolute bottom-2 right-2 flex items-center">
       {#each demoButtons as demoButton}
         <button
           class="w-8 h-8 mr-1 text-sm border-2 rounded-full shadow-xl bg-light/80 border-light/40 hover:animate-pulse"
@@ -24,38 +34,11 @@
         </button>
       {/each}
     </div>
-
-    <p class="m-0 text-sm font-medium text-svelteOrange">
-      {product.rank_status == null ? '' : product.rank_status}
-    </p>
-
-    <p class="m-0 text-sm font-medium text-svelteOrange">
-      {product.stock_status == 1
-        ? 'Only ' + product.stock + ' left!'
-        : product.stock_status == 2
-        ? 'Out of stock!'
-        : 'In stock'}
+  </div>
+  <div class="mt-4 md:min-h-[72px] lg:min-h-0">
+    <h3 class="font-semibold text-secondary">{product.name}</h3>
+    <p class="text-gray-500">
+      <span>${product.price ?? 100}</span>
     </p>
   </div>
-
-  <img
-    alt={product.name}
-    class={`object-cover transition-all duration-300 ease-in-out group-hover:scale-110 w-[336px] h-[336px] ${
-      product.stock_status === 2 ? 'grey-out' : ''
-    }`}
-    fetchpriority={priority === 'eager' ? 'high' : 'low'}
-    decoding="async"
-    loading={priority}
-    src={product.photo}
-  />
-
-  <div
-    class="absolute bottom-0 left-0 right-0 flex items-center justify-between py-2 bg-black/70 backdrop-blur-lg"
-  >
-    <p class="my-0 font-semibold text-white uppercase truncate whitespace-nowrap">{product.name}</p>
-
-    <p class="my-0 text-sm font-medium text-white">
-      ${product.price ?? 100}
-    </p>
-  </div>
-</div>
+</li>
