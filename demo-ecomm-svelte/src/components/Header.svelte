@@ -1,6 +1,19 @@
 <script>
   import { RefreshCw } from 'lucide-svelte';
   import MockingbirdWidget from './MockingbirdWidget.svelte';
+  import { createTooltip } from '@melt-ui/svelte';
+  const {
+    elements: { trigger, content },
+    states: { open }
+  } = createTooltip({
+    positioning: {
+      placement: 'bottom'
+    },
+    openDelay: 0,
+    closeDelay: 0,
+    closeOnPointerDown: false,
+    forceVisible: true
+  });
 </script>
 
 <header class="py-4 bg-backgroundDark text-white sticky top-0 z-40">
@@ -36,12 +49,18 @@
       </svg>
     </a>
     <h1 class="text-xl font-semibold text-white">Tinyshop</h1>
-    <div class="flex items-center gap-3">
+    <div class="flex items-center gap-2">
       <button
+        use:melt={$trigger}
         class="relative flex h-8 w-8 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors dark:border-neutral-700 dark:text-white"
       >
         <RefreshCw class="h-4 w-4" />
       </button>
+      {#if $open}
+        <div use:melt={$content} class="z-50 rounded-lg bg-secondary shadow">
+          <p class="px-4 py-1 text-white text-sm">Refresh</p>
+        </div>
+      {/if}
       <MockingbirdWidget />
     </div>
   </div>

@@ -1,5 +1,8 @@
 <script>
+  import { createTooltip } from '@melt-ui/svelte';
   import { createWorker, startWorker, stopWorker } from '../lib/workerBuilder';
+  import { Pause, Play } from 'lucide-svelte';
+  import { fade } from 'svelte/transition';
 
   /** @type {import('@tinybirdco/mockingbird').Schema} */
   const schema = {
@@ -70,46 +73,41 @@
 
     startWorker(worker);
   };
+  const {
+    elements: { trigger, content },
+    states: { open }
+  } = createTooltip({
+    positioning: {
+      placement: 'bottom'
+    },
+    openDelay: 0,
+    closeDelay: 0,
+    closeOnPointerDown: false,
+    forceVisible: true
+  });
 </script>
 
 {#if worker}
   <button
     class="relative flex h-8 w-8 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors dark:border-neutral-700 dark:text-white"
     on:click={pauseData}
+    use:melt={$trigger}
   >
-    <svg
-      width="15"
-      height="15"
-      fill="currentColor"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      <path
-        clip-rule="evenodd"
-        fill-rule="evenodd"
-        d="M6.75 5.25a.75.75 0 01.75-.75H9a.75.75 0 01.75.75v13.5a.75.75 0 01-.75.75H7.5a.75.75 0 01-.75-.75V5.25zm7.5 0A.75.75 0 0115 4.5h1.5a.75.75 0 01.75.75v13.5a.75.75 0 01-.75.75H15a.75.75 0 01-.75-.75V5.25z"
-      />
-    </svg>
+    <Pause class="h-4 w-4" />
   </button>
 {:else}
   <button
     class="relative flex h-8 w-8 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors dark:border-neutral-700 dark:text-white"
     on:click={generateData}
+    use:melt={$trigger}
   >
-    <svg
-      width="15"
-      height="15"
-      fill="currentColor"
-      viewBox="0 0 24 24"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      <path
-        clip-rule="evenodd"
-        fill-rule="evenodd"
-        d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z"
-      />
-    </svg>
+    <Play class="h-4 w-4" />
   </button>
+{/if}
+{#if $open}
+  <div use:melt={$content} class="z-50 rounded-lg bg-secondary shadow">
+    <p class="px-4 py-1 text-white text-sm">
+      {worker ? 'Pause data' : 'Generate data'}
+    </p>
+  </div>
 {/if}
