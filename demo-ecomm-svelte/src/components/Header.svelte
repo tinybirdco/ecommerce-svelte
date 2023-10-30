@@ -35,8 +35,10 @@
       </svg>
     </a>
     <h1 class="text-xl font-semibold text-white">Tinyshop</h1>
-    <div class="flex items-center gap-4">
-      <button class="flex items-center justify-center m-0 p-0 text-sm font-bold">
+    <div class="flex items-center gap-3">
+      <button
+        class="relative flex h-11 w-11 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors dark:border-neutral-700 dark:text-white"
+      >
         <svg
           width="15"
           height="15"

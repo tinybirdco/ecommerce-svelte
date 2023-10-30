@@ -1,10 +1,25 @@
 <script>
   import { sendEvents } from '../utils/tb.js';
-  const demoButtons = [{ name: 'sale', icon: '💳' }];
   const tbAppendToken = import.meta.env.VITE_TB_APPEND_TOKEN;
-  export let ranking;
   export let product;
   export let priority = 'lazy';
+
+  import { createTooltip, melt } from '@melt-ui/svelte';
+  import { fade } from 'svelte/transition';
+  import { Plus, CreditCard } from 'lucide-svelte';
+
+  const {
+    elements: { trigger, content, arrow },
+    states: { open }
+  } = createTooltip({
+    positioning: {
+      placement: 'top'
+    },
+    openDelay: 0,
+    closeDelay: 0,
+    closeOnPointerDown: false,
+    forceVisible: true
+  });
 </script>
 
 <li data-test="grid-tile" class="group overflow-hidden flex flex-col md:col-span-1">
@@ -20,19 +35,28 @@
       src={product.photo}
     />
     <div class="absolute bottom-2 right-2 flex items-center">
-      {#each demoButtons as demoButton}
-        <button
-          class="w-8 h-8 mr-1 text-sm border-2 rounded-full shadow-xl bg-light/80 border-light/40 hover:animate-pulse"
-          on:click={() =>
-            sendEvents(
-              [{ product: product.id, store: 'ecomm', amount: -1 }],
-              'stock_availability',
-              tbAppendToken
-            )}
+      <button
+        class="rounded-full bg-secondary p-1.5 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
+        use:melt={$trigger}
+        aria-label="Buy"
+        on:click={() =>
+          sendEvents(
+            [{ product: product.id, store: 'ecomm', amount: -1 }],
+            'stock_availability',
+            tbAppendToken
+          )}
+      >
+        <CreditCard class="h-4 w-4" />
+      </button>
+      {#if $open}
+        <div
+          use:melt={$content}
+          transition:fade={{ duration: 100 }}
+          class="z-50 rounded-lg bg-secondary shadow"
         >
-          {demoButton.icon}
-        </button>
-      {/each}
+          <p class="px-4 py-1 text-white">Buy</p>
+        </div>
+      {/if}
     </div>
   </div>
   <div class="mt-4 md:min-h-[72px] lg:min-h-0">

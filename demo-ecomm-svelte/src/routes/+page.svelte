@@ -34,7 +34,7 @@
           <a
             href={buildFilterUrl({ category: categoryValue, stock, ranking })}
             data-sveltekit-noscroll
-            class={`capitalize block mt-2 text-sm text-secondary hover:underline ${
+            class={`capitalize block mt-2 text-sm text-secondary underline-offset-4 hover:underline ${
               categoryValue === category ? 'underline' : ''
             }`}
           >
@@ -46,7 +46,7 @@
           <a
             href={buildFilterUrl({ category, stock: stockValue, ranking })}
             data-sveltekit-noscroll
-            class={`block mt-2 text-sm text-secondary hover:underline ${
+            class={`block mt-2 text-sm text-secondary underline-offset-4 hover:underline ${
               stockValue === stock ? 'underline' : ''
             }`}
           >
@@ -58,16 +58,18 @@
           <a
             href={buildFilterUrl({ category, stock, ranking: rankingValue })}
             data-sveltekit-noscroll
-            class={`block mt-2 text-sm text-secondary hover:underline ${
+            class={`block mt-2 text-sm text-secondary underline-offset-4 hover:underline ${
               rankingValue === ranking ? 'underline' : ''
-            } active:underline`}
+            }`}
           >
             {rankingValue === '0' ? 'Most popular' : 'Least popular'}
           </a>
         {/each}
       </nav>
       <section class="order-last min-h-screen w-full md:order-none">
-        <ul class="grid grid-flow-row gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+        <ul
+          class="grid grid-flow-row gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+        >
           {#each data.products as product}
             <ProductTile priority="eager" {product} {ranking} />
           {/each}
