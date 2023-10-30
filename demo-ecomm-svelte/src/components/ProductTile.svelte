@@ -62,7 +62,9 @@
           transition:fade={{ duration: 100 }}
           class="z-50 rounded-lg bg-secondary shadow"
         >
-          <p class="px-4 py-1 text-white text-sm">{buyedCount ? `Buyed +${buyedCount}` : 'Buy'}</p>
+          <p class="px-4 py-1 text-white text-sm">
+            {buyedCount ? `Purchased +${buyedCount}` : 'Purchase'}
+          </p>
         </div>
       {/if}
     </div>
