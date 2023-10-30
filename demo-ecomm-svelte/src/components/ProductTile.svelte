@@ -6,10 +6,10 @@
 
   import { createTooltip, melt } from '@melt-ui/svelte';
   import { fade } from 'svelte/transition';
-  import { Plus, CreditCard } from 'lucide-svelte';
+  import { CreditCard } from 'lucide-svelte';
 
   const {
-    elements: { trigger, content, arrow },
+    elements: { trigger, content },
     states: { open }
   } = createTooltip({
     positioning: {
@@ -54,7 +54,7 @@
           transition:fade={{ duration: 100 }}
           class="z-50 rounded-lg bg-secondary shadow"
         >
-          <p class="px-4 py-1 text-white">Buy</p>
+          <p class="px-4 py-1 text-white text-sm">Buy</p>
         </div>
       {/if}
     </div>
