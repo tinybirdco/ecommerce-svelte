@@ -8,6 +8,7 @@
   import { fade } from 'svelte/transition';
   import { CreditCard } from 'lucide-svelte';
 
+  let buyedCount = 0;
   const {
     elements: { trigger, content },
     states: { open }
@@ -39,12 +40,19 @@
         class="rounded-full bg-secondary p-1.5 text-white shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
         use:melt={$trigger}
         aria-label="Buy"
-        on:click={() =>
+        on:click={() => {
           sendEvents(
             [{ product: product.id, store: 'ecomm', amount: -1 }],
             'stock_availability',
             tbAppendToken
-          )}
+          );
+          buyedCount++;
+        }}
+        on:pointerleave={() => {
+          setTimeout(() => {
+            buyedCount = 0;
+          }, 200);
+        }}
       >
         <CreditCard class="h-4 w-4" />
       </button>
@@ -54,7 +62,7 @@
           transition:fade={{ duration: 100 }}
           class="z-50 rounded-lg bg-secondary shadow"
         >
-          <p class="px-4 py-1 text-white text-sm">Buy</p>
+          <p class="px-4 py-1 text-white text-sm">{buyedCount ? `Buyed +${buyedCount}` : 'Buy'}</p>
         </div>
       {/if}
     </div>
