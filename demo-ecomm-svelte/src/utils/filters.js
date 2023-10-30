@@ -13,3 +13,8 @@ export const Category = {
   clothing: 'clothing',
   accessories: 'accessories'
 };
+
+export const StockStatus = {
+  onlyLeft: 1,
+  outOfStock: 2
+};

@@ -2,6 +2,8 @@
   import { RefreshCw } from 'lucide-svelte';
   import MockingbirdWidget from './MockingbirdWidget.svelte';
   import { createTooltip } from '@melt-ui/svelte';
+  import { invalidateAll } from '$app/navigation';
+
   const {
     elements: { trigger, content },
     states: { open }
@@ -53,6 +55,7 @@
       <button
         use:melt={$trigger}
         class="relative flex h-8 w-8 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors dark:border-neutral-700 dark:text-white"
+        on:click={invalidateAll}
       >
         <RefreshCw class="h-4 w-4" />
       </button>
