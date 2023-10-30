@@ -2,7 +2,7 @@ import { Category, Stock, Ranking } from '../utils/filters';
 
 export async function load({ fetch, url }) {
   const category = url.searchParams.get('category') || Category.all;
-  const ranking = url.searchParams.get('ranking') || Ranking.mostPopular;
+  const ranking = url.searchParams.get('ranking') || Ranking.bestSellers;
   const show_oos = url.searchParams.get('show_oos') || Stock.inStock;
   const token = import.meta.env.VITE_TB_READ_TOKEN;
   const host = import.meta.env.VITE_TB_HOST;

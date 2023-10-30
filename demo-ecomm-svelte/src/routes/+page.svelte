@@ -12,7 +12,7 @@
 
   $: category = $page.url.searchParams.get('category') || Category.all;
   $: stock = $page.url.searchParams.get('show_oos') || Stock.inStock;
-  $: ranking = $page.url.searchParams.get('ranking') || Ranking.mostPopular;
+  $: ranking = $page.url.searchParams.get('ranking') || Ranking.bestSellers;
 
   export let data;
 
