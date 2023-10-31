@@ -6,6 +6,7 @@ TOKEN "commerce_UFA" READ
 
 TOKEN "commerce_UFA_filter" READ
 
+TOKEN "token_972076" READ
 
 NODE products_
 SQL >

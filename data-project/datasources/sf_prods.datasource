@@ -4,8 +4,7 @@ SCHEMA >
     `NAME` Nullable(String),
     `CATEGORY` Nullable(String),
     `PHOTO` Nullable(String),
-    `PRICE` Nullable(Float64),
-    `insertion_date` DateTime DEFAULT now()
+    `PRICE` Nullable(Float64)
 
 ENGINE "MergeTree"
 ENGINE_PARTITION_KEY "toYear(insertion_date)"

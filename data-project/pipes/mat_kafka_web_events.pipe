@@ -1,9 +1,0 @@
-NODE mv
-SQL >
-
-    SELECT datetime, event, product FROM kafka_web_events
-
-TYPE materialized
-DATASOURCE web_events
-
-

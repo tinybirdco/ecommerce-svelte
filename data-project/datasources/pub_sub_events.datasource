@@ -1,3 +1,5 @@
+TOKEN "append_token" APPEND
+
 
 SCHEMA >
     `message_data` String `json:$.message.data`,

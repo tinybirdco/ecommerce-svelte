@@ -4,7 +4,6 @@ TOKEN "commerce_UFA" READ
 
 TOKEN "commerce_UFA_filter" READ
 
-
 NODE filter_prods
 SQL >
 
