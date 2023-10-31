@@ -50,7 +50,7 @@
         />
       </svg>
     </a>
-    <h1 class="text-xl font-semibold text-white">Tinyshop</h1>
+    <h1 class="text-xl font-semibold text-white">Welcome to the Tinyshop</h1>
     <div class="flex items-center gap-2">
       <button
         use:melt={$trigger}
