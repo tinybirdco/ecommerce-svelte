@@ -1,0 +1,17 @@
+NODE mv
+DESCRIPTION >
+    undefined
+
+SQL >
+
+    SELECT
+        product,
+        sumSimpleState(amount) AS available_stock
+    FROM stock_availability
+    GROUP BY product
+
+TYPE materialized
+DATASOURCE mv_latest_availability
+ENGINE "AggregatingMergeTree"
+ENGINE_SORTING_KEY "product"
+

@@ -1,19 +1,13 @@
 <script>
+  import { createTooltip } from '@melt-ui/svelte';
   import { createWorker, startWorker, stopWorker } from '../lib/workerBuilder';
+  import { Pause, Play } from 'lucide-svelte';
+  import { fade } from 'svelte/transition';
 
   /** @type {import('@tinybirdco/mockingbird').Schema} */
   const schema = {
-    datetime: {
-      type: 'mockingbird.datetimeNow'
-    },
-    event: {
-      type: 'mockingbird.pickWeighted',
-      params: [
-        {
-          values: ['view', 'cart', 'sale'],
-          weights: [60, 33, 24]
-        }
-      ]
+    timestamp: {
+      type: 'mockingbird.timestampNow'
     },
     product: {
       type: 'mockingbird.pick',
@@ -32,51 +26,88 @@
           ]
         }
       ]
+    },
+    store: {
+      type: 'mockingbird.pick',
+      params: [
+        {
+          values: ['ecomm']
+        }
+      ]
+    },
+    amount: {
+      type: 'number.int',
+      params: [
+        {
+          min: '-1',
+          max: '-1'
+        }
+      ]
     }
   };
   const tbAppendToken = import.meta.env.VITE_TB_APPEND_TOKEN;
   const host = import.meta.env.VITE_TB_HOST;
   let worker = null;
 
-  const onGenerateClick = async () => {
+  const pauseData = async () => {
     if (worker) {
       stopWorker(worker);
       worker = null;
-    } else {
-      const endpoint =
-        host === 'api.tinybird.co'
-          ? 'eu_gcp'
-          : host === 'us-east.api.tinybird.co'
-          ? 'us_gcp'
-          : host;
-
-      worker = createWorker({
-        schema,
-        endpoint,
-        token: tbAppendToken,
-        datasource: 'web_events',
-        eps: 987,
-        limit: 1000000
-      });
-
-      if (!worker) return;
-
-      startWorker(worker);
     }
   };
+
+  const generateData = async () => {
+    const endpoint =
+      host === 'api.tinybird.co' ? 'eu_gcp' : host === 'us-east.api.tinybird.co' ? 'us_gcp' : host;
+
+    worker = createWorker({
+      schema,
+      endpoint,
+      token: tbAppendToken,
+      datasource: 'stock_availability',
+      eps: 500,
+      limit: 100000
+    });
+
+    if (!worker) return;
+
+    startWorker(worker);
+  };
+  const {
+    elements: { trigger, content },
+    states: { open }
+  } = createTooltip({
+    positioning: {
+      placement: 'bottom'
+    },
+    openDelay: 0,
+    closeDelay: 0,
+    closeOnPointerDown: false,
+    forceVisible: true
+  });
 </script>
 
-<div class="flex items-center gap-0.5 mr-4">
-  <p
-    class="flex items-center h-[42px] px-4 py-2 m-0 text-sm font-bold border rounded-tl rounded-bl border-svelteOrange"
-  >
-    Generate data
-  </p>
-
+{#if worker}
   <button
-    class="flex items-center justify-center px-4 py-2 border rounded-tr rounded-br border-svelteOrange"
-    on:click={onGenerateClick}
+    class="relative flex h-8 w-8 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors dark:border-neutral-700 dark:text-white"
+    on:click={pauseData}
+    use:melt={$trigger}
   >
-    {worker ? '⏸️' : '▶️'}
+    <Pause class="h-4 w-4" />
   </button>
-</div>
+{:else}
+  <button
+    class="relative flex h-8 w-8 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors dark:border-neutral-700 dark:text-white"
+    on:click={generateData}
+    use:melt={$trigger}
+  >
+    <Play class="h-4 w-4" />
+  </button>
+{/if}
+{#if $open}
+  <div use:melt={$content} class="z-50 rounded-lg bg-secondary shadow">
+    <p class="px-4 py-1 text-white text-sm">
+      {worker ? 'Pause data' : 'Generate data'}
+    </p>
+  </div>
+{/if}

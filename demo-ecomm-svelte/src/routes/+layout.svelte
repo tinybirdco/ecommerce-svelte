@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-  <title>Tinybird - SvelteKit Commerce</title>
+  <title>Tinyshop Demo</title>
   {#if tbTrackerToken && tbTrackerHost}
     <script
       src="https://unpkg.com/@tinybirdco/flock.js"
@@ -14,6 +14,6 @@
   {/if}
 </svelte:head>
 
-<div class="min-h-screen">
+<div class="min-h-screen bg-background antialiased text-secondary">
   <slot />
 </div>
