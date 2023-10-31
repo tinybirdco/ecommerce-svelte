@@ -12,6 +12,5 @@ SQL >
 
 TYPE materialized
 DATASOURCE mv_latest_availability
-ENGINE "AggregatingMergeTree"
-ENGINE_SORTING_KEY "product"
+
 

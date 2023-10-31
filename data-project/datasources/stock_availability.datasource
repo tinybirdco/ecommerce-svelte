@@ -1,5 +1,7 @@
 TOKEN "append_token" APPEND
 
+DESCRIPTION >
+    [Mockingbird](https://mockingbird.tinybird.co/?schema=%28%27R3RNow%27%29%7Eproduct*6cHumpSxTvsPFg15LdqpWrsPZu7A1GCSjZEPfSdBxY0NxVIPxFmXLq_KJxgP5d0cgAl5BTkPYY4YaHKh2jQPp8Drpg_duLwPsZzx0cUDX98%27OO%7Estore*ecomm%27OO%7Eamount%21%28%27type%21%27number.intMmin%21-1%7Emax%21-1%29O%29*3pickMvalues%21%5B%273%21%28%27type%21%27mockingbird.MPparams%21%5B%28%27O%5D%29P%27%7ERtimestamp%01RPOM3*_&host=eu_gcp&token=p.eyJ1IjogIjQ3YWE5NjU0LWRmNmEtNDYzYy04ZjdiLWYxN2M1ODVhMjM3OCIsICJpZCI6ICI2MGJjYjZjOC00M2U1LTRjODYtYTE5Yy1kMWM3NmVjNGZkZTUifQ.zVV1OIHYl4nTO26o1eC0bBgafTPbcXN041Ktt2aGL8o&datasource=stock_availability&eps=500&withLimit=on&limit=100000&generator=Tinybird&endpoint=eu_gcp&template=Custom&generatorName=Tinybird)
 
 SCHEMA >
     `timestamp` DateTime `json:$.timestamp`,
