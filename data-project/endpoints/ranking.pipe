@@ -6,13 +6,12 @@ TOKEN "read_ranking_token" READ
 
 TOKEN "test_ranking_token" READ
 
-
 NODE filter_prods
 SQL >
 
     %
     SELECT *
-    FROM bq_prods
+    FROM bq_prods 
     WHERE
         1
         {% if defined(id_param) %} and id = {{ String(id_param) }} {% end %}

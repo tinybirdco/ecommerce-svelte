@@ -1,11 +1,5 @@
 
 SCHEMA >
-    `__value` String,
-    `__topic` LowCardinality(String),
-    `__partition` Int16,
-    `__offset` Int64,
-    `__timestamp` DateTime,
-    `__key` String,
     `datetime` DateTime `json:$.datetime`,
     `event` String `json:$.event`,
     `product` String `json:$.product`
