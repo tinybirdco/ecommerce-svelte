@@ -62,7 +62,7 @@
               rankingValue === ranking ? 'underline' : ''
             }`}
           >
-            {rankingValue === Ranking.bestSellers ? 'Best sellers' : 'Price'}
+            {rankingValue === Ranking.bestSellers ? 'Best sellers' : 'Price (high to low)'}
           </a>
         {/each}
       </nav>
@@ -71,7 +71,7 @@
           class="grid grid-flow-row gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
         >
           {#each data.products as product}
-            <ProductTile priority="eager" {product} {ranking} />
+            <ProductTile priority="eager" {product} />
           {/each}
         </ul>
       </section>

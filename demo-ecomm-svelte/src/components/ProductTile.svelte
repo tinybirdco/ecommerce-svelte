@@ -29,7 +29,7 @@
     <img
       alt={product.name}
       class={`duration-300 ease-in-out group-hover:scale-105 md:group-hover:rounded-xl md:transition-all md:duration-500 block absolute h-full w-full object-cover bg-white ${
-        product.stock_status === StockStatus.outOfStock ? 'opacity-50' : ''
+        product.stock_status === StockStatus.outOfStock ? 'opacity-30' : ''
       }`}
       fetchpriority={priority === 'eager' ? 'high' : 'low'}
       decoding="async"

@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-  <title>Tinybird - eComm Demo</title>
+  <title>Tinyshop Demo</title>
   {#if tbTrackerToken && tbTrackerHost}
     <script
       src="https://unpkg.com/@tinybirdco/flock.js"
