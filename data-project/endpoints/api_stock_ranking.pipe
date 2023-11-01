@@ -48,7 +48,7 @@ DESCRIPTION >
 SQL >
 
     SELECT product, - sum(amount) AS hits
-    FROM stock_availability
+    FROM stock
     WHERE
         timestamp >= now() - interval 1 hour
         AND product IN (SELECT id FROM filter_prods)
@@ -70,7 +70,7 @@ SQL >
             stock,
             stock_status,
             hits,
-            CASE WHEN ROW_NUMBER() OVER (ORDER BY hits DESC) <= 3 THEN 'Trending 🔥' END AS rank_status,
+            CASE WHEN ROW_NUMBER() OVER (ORDER BY stock_status, hits DESC) <= 3 THEN 'Trending 🔥' END AS rank_status,
             photo,
             price
         FROM latest_stock

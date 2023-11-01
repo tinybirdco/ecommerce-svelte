@@ -31,13 +31,13 @@ DESCRIPTION >
 
 SQL >
 
-    %
-        SELECT product, - sum(amount) AS hits
-        FROM stock
-        WHERE
-            timestamp >= now() - interval {{ UInt16(hours_param, 1, description="Hours to go back") }} hour
-            AND store = 'ecomm'
-        GROUP BY product
+    % 
+    SELECT product, sum(-1) AS hits
+    FROM ecomm_events
+    WHERE
+        timestamp >= now() - interval {{ UInt16(hours_param, 1, description="Hours to go back") }} hour
+        AND event = 'sale'
+    GROUP BY product
 
 
 
@@ -48,15 +48,10 @@ DESCRIPTION >
 SQL >
 
     %
-        SELECT
-            latest_stock.product AS id,
-            name,
-            stock,
-            stock_status,
-            hits
-        FROM latest_stock
-        LEFT JOIN ecomm_hits on latest_stock.product = ecomm_hits.product
-        JOIN bq_prods ON latest_stock.product = bq_prods.id
-        ORDER BY hits desc
+    SELECT ls.product AS id, name, stock, stock_status, hits
+    FROM latest_stock ls
+    LEFT JOIN ecomm_hits eh ON ls.product = eh.product
+    JOIN bq_prods bp ON ls.product = bp.id
+    ORDER BY hits desc
 
 
