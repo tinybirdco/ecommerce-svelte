@@ -27,20 +27,20 @@
         }
       ]
     },
-    store: {
-      type: 'mockingbird.pick',
+    event: {
+      type: 'mockingbird.pickWeighted',
       params: [
         {
-          values: ['ecomm']
-        }
-      ]
-    },
-    amount: {
-      type: 'number.int',
-      params: [
-        {
-          min: '-1',
-          max: '-1'
+          values: [
+            'view',
+            'cart',
+            'sale'
+          ],
+          weights: [
+            60,
+            33,
+            24
+          ]
         }
       ]
     }
@@ -64,7 +64,7 @@
       schema,
       endpoint,
       token: tbAppendToken,
-      datasource: 'stock_availability',
+      datasource: 'ecomm_events',
       eps: 500,
       limit: 100000
     });
