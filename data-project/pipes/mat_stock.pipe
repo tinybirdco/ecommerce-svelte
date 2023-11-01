@@ -7,7 +7,7 @@ SQL >
     SELECT
         product,
         sumSimpleState(amount) AS available_stock
-    FROM stock_availability
+    FROM warehouse_stock
     GROUP BY product
 
 TYPE materialized

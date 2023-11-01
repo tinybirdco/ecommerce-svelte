@@ -66,11 +66,7 @@
           use:melt={$trigger}
           aria-label="Buy"
           on:click={() => {
-            sendEvents(
-              [{ product: product.id, store: 'ecomm', amount: -1 }],
-              'stock_availability',
-              tbAppendToken
-            );
+            sendEvents([{ product: product.id, event: 'sale' }], 'ecomm_events', tbAppendToken);
             buyedCount++;
           }}
           on:pointerleave={() => {
