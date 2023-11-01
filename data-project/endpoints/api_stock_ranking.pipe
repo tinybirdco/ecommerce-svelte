@@ -64,8 +64,6 @@ DESCRIPTION >
 SQL >
 
     %
-    {% set ranking = '1' %}
-    {% set show_oos = '1' %}
     SELECT
         ls.product AS id,
         name,
