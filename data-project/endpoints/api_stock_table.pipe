@@ -32,7 +32,7 @@ DESCRIPTION >
 SQL >
 
     % 
-    SELECT product, sum(-1) AS hits
+    SELECT product, count() AS hits
     FROM ecomm_events
     WHERE
         timestamp >= now() - interval {{ UInt16(hours_param, 1, description="Hours to go back") }} hour
