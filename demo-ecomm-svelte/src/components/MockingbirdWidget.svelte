@@ -93,7 +93,7 @@
     on:click={pauseData}
     use:melt={$trigger}
   >
-    <Pause class="h-4 w-4" />
+    <Pause class="h-4 w-4" color="#fff"/>
   </button>
 {:else}
   <button
@@ -101,7 +101,7 @@
     on:click={generateData}
     use:melt={$trigger}
   >
-    <Play class="h-4 w-4" />
+    <Play class="h-4 w-4" color="#fff"/>
   </button>
 {/if}
 {#if $open}
