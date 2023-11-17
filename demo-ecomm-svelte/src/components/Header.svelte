@@ -57,7 +57,7 @@
         class="relative flex h-8 w-8 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors dark:border-neutral-700 dark:text-white"
         on:click={invalidateAll}
       >
-        <RefreshCw class="h-4 w-4" />
+        <RefreshCw class="h-4 w-4" color="#fff" />
       </button>
       {#if $open}
         <div use:melt={$content} class="z-50 rounded-lg bg-secondary shadow">
