@@ -1,13 +1,13 @@
 NODE mv
 DESCRIPTION >
-    undefined
+    grouping the sales per product
 
 SQL >
 
     SELECT
         product,
         sumSimpleState(-1) AS available_stock
-    FROM ecomm_events
+    FROM confluent_events
     WHERE event = 'sale'
     GROUP BY product
 
