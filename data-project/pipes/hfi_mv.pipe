@@ -14,12 +14,12 @@ NODE extract_message_fields
 SQL >
 
     SELECT
-           toDateTime(toDateTime64(JSONExtractString(message, 'datetime'), 3)) datetime,
+           toDateTime(toDateTime64(JSONExtractString(message, 'datetime'), 3)) timestamp,
            JSONExtractString(message, 'event') event,
            JSONExtractString(message, 'product') product
        FROM decode_messages
 
 TYPE materialized
-DATASOURCE web_events
+DATASOURCE ecomm_events
 
 

@@ -1,6 +1,4 @@
-TOKEN "read_ranking_token" READ
-
-TOKEN "commerce_UFA" READ
+TOKEN "app_read_token" READ
 
 TOKEN "commerce_UFA_filter" READ
 
@@ -21,23 +19,53 @@ SQL >
 
 
 
-NODE filter_join
+NODE select_minutes
 SQL >
 
     %
-    {% set hrs = UInt16(hours_param) %}
-
     SELECT
         product,
         countIfMerge(n_views) n_views,
         countIfMerge(n_carts) n_carts,
         countIfMerge(n_sales) n_sales,
         price
-    FROM
-        {% if hrs > 24 %} events_by_day_mv
-        {% elif hrs > 3 %} events_by_hour_mv
-        {% else %} events_by_min_mv
-        {% end %}
+    FROM events_by_min_mv
+    JOIN filter_prods ON product = id
+    WHERE
+        ts >= now() - interval {{ UInt16(hours_param, 6, description="Hours to go back") }} hour
+    GROUP BY product, price
+
+
+
+NODE select_hours
+SQL >
+
+    %
+    SELECT
+        product,
+        countIfMerge(n_views) n_views,
+        countIfMerge(n_carts) n_carts,
+        countIfMerge(n_sales) n_sales,
+        price
+    FROM events_by_hour_mv
+    JOIN filter_prods ON product = id
+    WHERE
+        ts >= now() - interval {{ UInt16(hours_param, 6, description="Hours to go back") }} hour
+    GROUP BY product, price
+
+
+
+NODE select_days
+SQL >
+
+    %
+    SELECT
+        product,
+        countIfMerge(n_views) n_views,
+        countIfMerge(n_carts) n_carts,
+        countIfMerge(n_sales) n_sales,
+        price
+    FROM events_by_day_mv
     JOIN filter_prods ON product = id
     WHERE
         ts >= now() - interval {{ UInt16(hours_param, 6, description="Hours to go back") }} hour
@@ -48,11 +76,16 @@ SQL >
 NODE endpoint
 SQL >
 
+    %
     SELECT
         sum(n_views) n_views,
         sum(n_carts * price) cart_value,
         sum(n_sales * price) revenue,
         revenue / cart_value * 100 conversion
-    FROM filter_join
+    FROM
+      {% if UInt16(hours_param) > 24 %} select_days
+      {% elif UInt16(hours_param) > 3 %} select_hours
+      {% else %} select_minutes
+      {% end %}
 
 

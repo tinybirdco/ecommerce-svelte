@@ -2,13 +2,13 @@ NODE events_by_hour
 SQL >
 
     SELECT
-        toStartOfHour(datetime) AS ts,
+        toStartOfHour(timestamp) AS ts,
         product,
         countState() AS n_events,
         countIfState(event = 'view') AS n_views,
         countIfState(event = 'cart') AS n_carts,
         countIfState(event = 'sale') AS n_sales
-    FROM web_events
+    FROM ecomm_events
     GROUP BY
         ts,
         product

@@ -1,9 +1,13 @@
 NODE mv
 SQL >
 
-    SELECT datetime, event, product FROM confluent_events
+    SELECT 
+      datetime as timestamp, 
+      event, 
+      product 
+    FROM confluent_events
 
 TYPE materialized
-DATASOURCE web_events
+DATASOURCE ecomm_events
 
 

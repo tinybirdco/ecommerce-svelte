@@ -1,8 +1,6 @@
-TOKEN "read_ranking_token" READ
-
 TOKEN "api_ui_filters_endpoint_read_0989" READ
 
-TOKEN "commerce_UFA" READ
+TOKEN "app_read_token" READ
 
 TOKEN "commerce_UFA_filter" READ
 

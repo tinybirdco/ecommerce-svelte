@@ -1,4 +1,4 @@
-TOKEN "append_token" APPEND
+TOKEN "app_append_token" APPEND
 
 
 SCHEMA >

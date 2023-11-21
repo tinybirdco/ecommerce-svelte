@@ -1,10 +1,8 @@
-TOKEN "read_ranking_token" READ
-
-TOKEN "commerce_UFA" READ
-
-TOKEN "api_views_trend_endpoint_read_8414" READ
+TOKEN "app_read_token" READ
 
 TOKEN "commerce_UFA_filter" READ
+
+TOKEN "api_views_carts_trend_endpoint_read_8197" READ
 
 NODE filter_prods
 SQL >
@@ -23,22 +21,55 @@ SQL >
 
 
 
-NODE endpoint
+NODE select_minutes
 SQL >
 
     %
-    {% set hrs = UInt16(hours_param) %}
-
     SELECT ts, countIfMerge(n_views) n_views, countIfMerge(n_carts) n_carts
-    FROM
-        {% if hrs > 24 %} events_by_day_mv
-        {% elif hrs > 3 %} events_by_hour_mv
-        {% else %} events_by_min_mv
-        {% end %}
+    FROM events_by_min_mv
     WHERE
         ts >= now() - interval {{ UInt16(hours_param, 6, description="Hours to go back") }} hour
         AND product IN (SELECT id FROM filter_prods)
     GROUP BY ts
+
+
+
+NODE select_hours
+SQL >
+
+    %
+    SELECT ts, countIfMerge(n_views) n_views, countIfMerge(n_carts) n_carts
+    FROM events_by_hour_mv
+    WHERE
+        ts >= now() - interval {{ UInt16(hours_param, 6, description="Hours to go back") }} hour
+        AND product IN (SELECT id FROM filter_prods)
+    GROUP BY ts
+
+
+
+NODE select_days
+SQL >
+
+    %
+    SELECT ts, countIfMerge(n_views) n_views, countIfMerge(n_carts) n_carts
+    FROM events_by_day_mv
+    WHERE
+        ts >= now() - interval {{ UInt16(hours_param, 6, description="Hours to go back") }} hour
+        AND product IN (SELECT id FROM filter_prods)
+    GROUP BY ts
+
+
+
+NODE endpoint
+SQL >
+
+    %
+    SELECT *
+    FROM
+        {% if UInt16(hours_param) > 24 %} select_days
+        {% elif UInt16(hours_param) > 3 %} select_hours
+        {% else %} select_minutes
+        {% end %}
     ORDER BY ts
 
 

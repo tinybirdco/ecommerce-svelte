@@ -2,13 +2,13 @@ NODE events_by_min
 SQL >
 
     SELECT
-        toStartOfMinute(datetime) AS ts,
+        toStartOfMinute(timestamp) AS ts,
         product,
         countState() AS n_events,
         countIfState(event = 'view') AS n_views,
         countIfState(event = 'cart') AS n_carts,
         countIfState(event = 'sale') AS n_sales
-    FROM web_events
+    FROM ecomm_events
     GROUP BY
         ts,
         product

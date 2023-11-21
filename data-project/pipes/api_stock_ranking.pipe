@@ -2,7 +2,7 @@ DESCRIPTION >
 	Current stock of products; Top products by view, cart or sale from web events enriched with product dimensions
 
 
-TOKEN "read_ranking_token" READ
+TOKEN "app_read_token" READ
 
 NODE filter_prods
 DESCRIPTION >
