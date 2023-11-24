@@ -17,7 +17,7 @@
         uses: tinybirdco/ci/.github/workflows/cd.yml@v2.2.0
         with:
           tb_deploy: false
-          data_project_dir: .
+          data_project_dir: ./data-project
         secrets:
           tb_admin_token: ${{ secrets.TB_ADMIN_TOKEN }}  # set admin token associated to an account in GitHub secrets
           tb_host: https://api.tinybird.co
