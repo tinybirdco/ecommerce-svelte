@@ -9,8 +9,8 @@ ENGINE_PARTITION_KEY "toYYYYMM(__timestamp)"
 ENGINE_SORTING_KEY "__timestamp"
 
 KAFKA_CONNECTION_NAME 'tb_confluent'
-KAFKA_TOPIC 'ecomm_ux_demo'
-KAFKA_GROUP_ID 'ecomm_ux_demo_DM_2022-12-07'
 KAFKA_AUTO_OFFSET_RESET 'latest'
 KAFKA_STORE_RAW_VALUE 'False'
 KAFKA_TARGET_PARTITIONS 'auto'
+
+INCLUDE "./includes/confuent_events_info_${ENV}.incl"
