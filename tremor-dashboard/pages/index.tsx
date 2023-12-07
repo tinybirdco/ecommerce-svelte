@@ -296,8 +296,8 @@ export default function KpiCardGrid() {
               defaultValue={"all"}
             >
               <SelectItem value="all">All</SelectItem>
-              <SelectItem value="short sleeve">Short sleeve</SelectItem>
-              <SelectItem value="long sleeve">Long sleeve</SelectItem>
+              <SelectItem value="clothing">Clothing</SelectItem>
+              <SelectItem value="accessories">Accessories</SelectItem>
             </Select>
           </div>
 
