@@ -58,7 +58,7 @@
 
   const generateData = async () => {
     const endpoint =
-      host === 'api.tinybird.co' ? 'eu_gcp' : host === 'us-east.api.tinybird.co' ? 'us_gcp' : host;
+      host === 'api.tinybird.co' ? 'gcp_europe_west3' : host === 'us-east.api.tinybird.co' ? 'gcp_us_east4' : host;
 
     worker = createWorker({
       schema,
