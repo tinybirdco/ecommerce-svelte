@@ -1,0 +1,2 @@
+KAFKA_TOPIC 'ecomm_ux_demo'
+KAFKA_GROUP_ID 'ecomm_ux_demo_GG_2023-12-05'
