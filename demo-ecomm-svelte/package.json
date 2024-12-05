@@ -34,5 +34,8 @@
     "@melt-ui/svelte": "^0.57.2",
     "@tinybirdco/mockingbird": "^1.2.0",
     "lucide-svelte": "^0.290.0"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }
