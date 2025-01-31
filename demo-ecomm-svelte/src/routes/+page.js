@@ -20,6 +20,6 @@ export async function load({ fetch, url }) {
       products: res.data
     };
   } else {
-    throw new Error(res);
+    throw new Error(`Error fetching data: ${res.message || 'Unknown error'}`);
   }
 }
