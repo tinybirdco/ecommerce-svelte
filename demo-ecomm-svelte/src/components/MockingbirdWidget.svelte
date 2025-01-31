@@ -2,7 +2,6 @@
   import { createTooltip } from '@melt-ui/svelte';
   import { createWorker, startWorker, stopWorker } from '../lib/workerBuilder';
   import { Pause, Play } from 'lucide-svelte';
-  import { fade } from 'svelte/transition';
 
   /** @type {import('@tinybirdco/mockingbird').Schema} */
   const schema = {

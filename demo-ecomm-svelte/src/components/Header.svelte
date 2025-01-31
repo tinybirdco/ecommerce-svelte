@@ -1,6 +1,7 @@
 <script>
   import { RefreshCw } from 'lucide-svelte';
   import MockingbirdWidget from './MockingbirdWidget.svelte';
+  import StockWidget from './StockWidget.svelte';
   import { createTooltip } from '@melt-ui/svelte';
   import { invalidateAll } from '$app/navigation';
 
@@ -64,6 +65,7 @@
           <p class="px-4 py-1 text-white text-sm">Refresh</p>
         </div>
       {/if}
+      <StockWidget />
       <MockingbirdWidget />
     </div>
   </div>
