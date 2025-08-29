@@ -6,8 +6,11 @@ export async function sendEvents(events, dsName, dsAppendToken){
   const headers = {
       'Authorization': `Bearer ${dsAppendToken}`,
   };
-  const url = 'https://api.tinybird.co/' // you may be on a different host
-  const rawResponse = await fetch(`${url}v0/events?name=${dsName}`, {
+  
+  const host = import.meta.env.VITE_TB_HOST;
+  const url = `${host}/v0/events?name=${dsName}`;
+  
+  const rawResponse = await fetch(url, {
       method: 'POST',
       body: events.map(JSON.stringify).join('\n'),
       headers: headers,

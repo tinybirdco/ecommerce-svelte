@@ -1,10 +1,4 @@
-TOKEN "api_ui_filters_endpoint_read_0989" READ
-
 TOKEN "app_read_token" READ
-
-TOKEN "commerce_UFA_filter" READ
-
-TOKEN "token_972076" READ
 
 NODE products_
 SQL >
@@ -12,7 +6,7 @@ SQL >
     %
     SELECT 'All' as id, 'All' as value
     UNION ALL
-    SELECT id, name FROM bq_prods
+    SELECT id, name FROM products 
     {%if defined(category) and category !='all'%}
     where category = {{String(category, description="product category", required=True)}}
     {%end%}
@@ -43,4 +37,4 @@ SQL >
     {% else %} value FROM kpis_
     {% end %}
 
-
+TYPE Endpoint

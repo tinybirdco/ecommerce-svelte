@@ -1,18 +1,15 @@
-DESCRIPTION >
-	Current stock of products; Top products by view, cart or sale from web events enriched with product dimensions
-
-
 TOKEN "app_read_token" READ
 
-NODE filter_prods
 DESCRIPTION >
-    undefined
+    Endpoint for product ranking with stock information
+
+NODE filter_prods
 
 SQL >
 
     %
         SELECT *
-        FROM bq_prods
+        FROM products
         WHERE
             1
             {% if defined(category) and category != "all" %}
@@ -20,10 +17,7 @@ SQL >
             {% end %}
 
 
-
 NODE latest_stock
-DESCRIPTION >
-    undefined
 
 SQL >
 
@@ -40,10 +34,7 @@ SQL >
     GROUP BY product
 
 
-
 NODE ecomm_hits
-DESCRIPTION >
-    undefined
 
 SQL >
 
@@ -55,11 +46,7 @@ SQL >
         AND event = 'sale'
     GROUP BY product
 
-
-
 NODE endpoint
-DESCRIPTION >
-    undefined
 
 SQL >
 
@@ -88,3 +75,4 @@ SQL >
         {% else %} ORDER BY price DESC {% end %}
 
 
+TYPE endpoint
