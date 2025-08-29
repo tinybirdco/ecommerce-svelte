@@ -3,69 +3,95 @@
   import { createWorker, startWorker, stopWorker } from '../lib/workerBuilder';
   import { Pause, Play } from 'lucide-svelte';
 
-  /** @type {import('@tinybirdco/mockingbird').Schema} */
-  const schema = {
-    timestamp: {
-      type: 'mockingbird.timestampNow'
-    },
-    product: {
-      type: 'mockingbird.pick',
-      params: [
-        {
-          values: [
-            'sZzx0cUDX98',
-            '5d0cgAl5BTk',
-            'YY4YaHKh2jQ',
-            'p8Drpg_duLw',
-            'xFmXLq_KJxg',
-            'fSdBxY0NxVI',
-            '6cHumpSxTvs',
-            'Zu7A1GCSjZE',
-            'Fg15LdqpWrs'
-          ]
-        }
-      ]
-    },
-    event: {
-      type: 'mockingbird.pickWeighted',
-      params: [
-        {
-          values: [
-            'view',
-            'cart',
-            'sale'
-          ],
-          weights: [
-            60,
-            33,
-            24
-          ]
-        }
-      ]
-    }
-  };
   const tbAppendToken = import.meta.env.VITE_TB_APPEND_TOKEN;
   const host = import.meta.env.VITE_TB_HOST;
   let worker = null;
+  let errorMessage = '';
+  let apiCalls = [];
+  let totalEventsSent = 0;
 
   const pauseData = async () => {
     if (worker) {
       stopWorker(worker);
-      worker = null;
     }
   };
 
   const generateData = async () => {
+    // Debug environment variables
+    console.log('Environment variables:', {
+      host,
+      hasToken: !!tbAppendToken,
+      tokenLength: tbAppendToken?.length
+    });
+
+    if (!tbAppendToken) {
+      errorMessage = 'Missing VITE_TB_APPEND_TOKEN environment variable';
+      return;
+    }
+
+    if (!host) {
+      errorMessage = 'Missing VITE_TB_HOST environment variable';
+      return;
+    }
+
     const endpoint =
       host === 'api.tinybird.co' ? 'gcp_europe_west3' : host === 'us-east.api.tinybird.co' ? 'gcp_us_east4' : host;
 
     worker = createWorker({
-      schema,
+      schema: {}, // Empty schema since we're not using Mockingbird
       endpoint,
       token: tbAppendToken,
       datasource: 'ecomm_events',
       eps: 500,
       limit: 100000
+    }, 
+    (message) => {
+      // Handle API call messages
+      if (message.data && message.data.type === 'apiCall') {
+        const call = {
+          timestamp: new Date().toISOString(),
+          url: message.data.url,
+          eventCount: message.data.events.length,
+          success: message.data.success,
+          response: message.data.response,
+          error: message.data.error
+        };
+        
+        apiCalls = [call, ...apiCalls.slice(0, 9)]; // Keep last 10 calls
+        
+        if (message.data.success) {
+          totalEventsSent += message.data.events.length;
+          console.log(`✅ API Call Success: ${message.data.events.length} events sent`);
+        } else {
+          console.error(`❌ API Call Failed: ${message.data.error}`);
+        }
+        
+        errorMessage = '';
+      }
+      // Handle successful data generation
+      else if (message.data && typeof message.data === 'number') {
+        console.log(`Generated ${message.data} events`);
+        errorMessage = '';
+      } 
+      // Handle stop confirmation from worker
+      else if (message.data && message.data.type === 'stopped') {
+        worker = null;
+      }
+      // Handle error messages from worker
+      else if (message.data && message.data.error) {
+        console.error('Worker error:', message.data);
+        errorMessage = message.data.error;
+        if (message.data.details) {
+          errorMessage += ` - ${message.data.details}`;
+        }
+        worker = null;
+      }
+    },
+    (error) => {
+      // Handle worker errors
+      console.error('Worker error:', error);
+      errorMessage = `Worker error: ${error.message || 'Unknown error'}`;
+      worker = null;
     });
 
     if (!worker) return;
@@ -110,3 +136,11 @@
     </p>
   </div>
 {/if}
+
+{#if errorMessage}
+  <div class="mt-2 p-2 bg-red-100 border border-red-400 text-red-700 rounded text-xs">
+    {errorMessage}
+  </div>
+{/if}
+
+

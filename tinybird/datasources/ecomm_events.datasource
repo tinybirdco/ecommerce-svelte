@@ -1,5 +1,7 @@
 TOKEN "app_append_token" APPEND
 
+DESCRIPTION >
+    Ecommerce events tracking datasource
 
 SCHEMA >
     `timestamp` DateTime `json:$.timestamp`,

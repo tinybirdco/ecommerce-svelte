@@ -2,7 +2,7 @@
   import { createTooltip } from '@melt-ui/svelte';
   import { Truck } from 'lucide-svelte';
 
-  const tbAppendToken = import.meta.env.VITE_TB_APPEND_TOKEN;
+  const tbStockToken = import.meta.env.VITE_TB_STOCK_TOKEN;
   const host = import.meta.env.VITE_TB_HOST;
 
   const {
@@ -31,9 +31,9 @@
 
   const truncateLatestAvailability = async () => {
     try {
-      const response = await fetch(`https://${host}/v0/datasources/mat_stock_latest/truncate`, {
+      const response = await fetch(`${host}/v0/datasources/mv_latest_availability/truncate`, {
         method: 'POST',
-        headers: { Authorization: `Bearer ${tbAppendToken}` }
+        headers: { Authorization: `Bearer ${tbStockToken}` }
       });
 
       // Check if the response is okay
@@ -116,10 +116,10 @@
       }
     ];
     const ndjson = data.map((row) => JSON.stringify(row)).join('\n');
-    fetch(`https://${host}/v0/events?name=warehouse_stock`, {
+    fetch(`${host}/v0/events?name=warehouse_stock`, {
       method: 'POST',
       body: ndjson,
-      headers: { Authorization: `Bearer ${tbAppendToken}` }
+      headers: { Authorization: `Bearer ${tbStockToken}` }
     })
       .then((res) => res.json())
       .then((data) => console.log(data))
