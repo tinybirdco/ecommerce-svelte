@@ -2,6 +2,9 @@
   "name": "demo-ecomm-svelte",
   "version": "0.0.1",
   "private": true,
+  "engines": {
+    "node": ">=22.0.0"
+  },
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
@@ -11,28 +14,28 @@
   },
   "devDependencies": {
     "@melt-ui/pp": "^0.1.2",
-    "@sveltejs/adapter-auto": "2.1.0",
-    "@sveltejs/kit": "1.27.2",
+    "@sveltejs/adapter-vercel": "^5.10.2",
+    "@sveltejs/kit": "^2.37.0",
     "autoprefixer": "^10.4.13",
-    "eslint": "^8.16.0",
+    "eslint": "^9.34.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-svelte": "^2.34.0",
     "postcss": "^8.4.16",
-    "prettier": "^2.6.2",
-    "prettier-plugin-svelte": "^2.7.0",
-    "svelte": "^4.2.2",
+    "prettier": "^3.6.2",
+    "prettier-plugin-svelte": "^3.4.0",
+    "svelte": "^5.38.6",
     "svelte-popover": "^2.0.8",
     "svelte-preprocess": "^5.0.4",
     "svelte-sequential-preprocessor": "^2.0.1",
     "tailwindcss": "^3.3.5",
-    "vite": "^4.1.1",
-    "vite-plugin-node-polyfills": "^0.15.0"
+    "vite": "^6.3.5",
+    "vite-plugin-node-polyfills": "^0.24.0"
   },
   "type": "module",
   "dependencies": {
     "@babel/runtime": "^7.19.0",
     "@google-cloud/spanner": "^7.18.0",
-    "@melt-ui/svelte": "^0.57.2",
-    "lucide-svelte": "^0.290.0"
+    "@melt-ui/svelte": "^0.86.6",
+    "lucide-svelte": "^0.542.0"
   }
 }
