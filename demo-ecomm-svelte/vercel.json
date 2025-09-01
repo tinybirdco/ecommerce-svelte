@@ -1,0 +1,11 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": ".svelte-kit/vercel",
+  "framework": "sveltekit",
+  "installCommand": "npm install",
+  "functions": {
+    ".svelte-kit/vercel/**/*.js": {
+      "runtime": "nodejs22.x"
+    }
+  }
+} 
