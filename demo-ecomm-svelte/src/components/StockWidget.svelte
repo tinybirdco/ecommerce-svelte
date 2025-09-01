@@ -64,13 +64,13 @@
         timestamp: new Date().toISOString(),
         product: '5d0cgAl5BTk',
         store: 'warehouse_1',
-        amount: 10000
+        amount: 1000
       },
       {
         timestamp: new Date().toISOString(),
         product: 'YY4YaHKh2jQ',
         store: 'warehouse_1',
-        amount: 10000
+        amount: 600
       },
       {
         timestamp: new Date().toISOString(),
@@ -82,13 +82,13 @@
         timestamp: new Date().toISOString(),
         product: 'sZzx0cUDX98',
         store: 'warehouse_1',
-        amount: 50000
+        amount: 500
       },
       {
         timestamp: new Date().toISOString(),
         product: 'xFmXLq_KJxg',
         store: 'warehouse_1',
-        amount: 1000
+        amount: 3
       },
       {
         timestamp: new Date().toISOString(),
@@ -106,13 +106,13 @@
         timestamp: new Date().toISOString(),
         product: 'Zu7A1GCSjZE',
         store: 'warehouse_1',
-        amount: 0
+        amount: 5
       },
       {
         timestamp: new Date().toISOString(),
         product: 'fSdBxY0NxVI',
         store: 'warehouse_1',
-        amount: 0
+        amount: 500
       }
     ];
     const ndjson = data.map((row) => JSON.stringify(row)).join('\n');
