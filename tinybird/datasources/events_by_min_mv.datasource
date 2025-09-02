@@ -1,0 +1,13 @@
+# Data Source created from Pipe 't_45ad6ea359fa44fcb29b59f6855b0f81'
+
+SCHEMA >
+    `ts` DateTime,
+    `product` String,
+    `n_events` AggregateFunction(count),
+    `n_views` AggregateFunction(countIf, UInt8),
+    `n_carts` AggregateFunction(countIf, UInt8),
+    `n_sales` AggregateFunction(countIf, UInt8)
+
+ENGINE "AggregatingMergeTree"
+ENGINE_PARTITION_KEY "toYYYYMM(ts)"
+ENGINE_SORTING_KEY "ts, product"

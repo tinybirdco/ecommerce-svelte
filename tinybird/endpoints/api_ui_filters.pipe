@@ -1,3 +1,4 @@
+TOKEN "tremor_dashboard_read" READ
 TOKEN "app_read_token" READ
 
 NODE products_
@@ -6,7 +7,7 @@ SQL >
     %
     SELECT 'All' as id, 'All' as value
     UNION ALL
-    SELECT id, name FROM products 
+    SELECT id, name FROM products
     {%if defined(category) and category !='all'%}
     where category = {{String(category, description="product category", required=True)}}
     {%end%}
@@ -37,4 +38,4 @@ SQL >
     {% else %} value FROM kpis_
     {% end %}
 
-TYPE Endpoint
+

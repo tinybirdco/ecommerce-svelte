@@ -1,0 +1,90 @@
+TOKEN "tremor_dashboard_read" READ
+
+NODE filter_prods
+SQL >
+
+    %
+    SELECT *
+    FROM products
+    WHERE
+        1
+        {% if defined(prod_id) and prod_id != "All" %}
+            AND id = {{ String(prod_id) }}
+        {% end %}
+        {% if defined(category) and category != "all" %}
+            and category = {{ String(category) }}
+        {% end %}
+
+
+
+NODE select_minutes
+SQL >
+
+    %
+    SELECT
+        ts,
+        product,
+        countIfMerge(n_carts) n_carts,
+        countIfMerge(n_sales) n_sales,
+        price
+    FROM events_by_min_mv
+    JOIN filter_prods ON product = id
+    WHERE
+        ts >= now() - interval {{ UInt16(hours_param, 6, description="Hours to go back") }} hour
+    GROUP BY ts, product, price
+
+
+
+NODE select_hours
+SQL >
+
+    %
+    SELECT
+        ts,
+        product,
+        countIfMerge(n_carts) n_carts,
+        countIfMerge(n_sales) n_sales,
+        price
+    FROM events_by_hour_mv
+    JOIN filter_prods ON product = id
+    WHERE
+        ts >= now() - interval {{ UInt16(hours_param, 6, description="Hours to go back") }} hour
+    GROUP BY ts, product, price
+
+
+
+NODE select_days
+SQL >
+
+    %
+    SELECT
+        ts,
+        product,
+        countIfMerge(n_carts) n_carts,
+        countIfMerge(n_sales) n_sales,
+        price
+    FROM events_by_day_mv
+    JOIN filter_prods ON product = id
+    WHERE
+        ts >= now() - interval {{ UInt16(hours_param, 6, description="Hours to go back") }} hour
+    GROUP BY ts, product, price
+
+
+
+NODE endpoint
+SQL >
+
+    %
+    SELECT
+        ts,
+        round(sum(n_carts * price)) cart_value,
+        round(sum(n_sales * price)) revenue
+    FROM 
+        {% if UInt16(hours_param) > 24 %} select_days
+        {% elif UInt16(hours_param) > 3 %} select_hours
+        {% else %} select_minutes
+        {% end %}
+    GROUP BY ts
+    ORDER BY ts
+
+TYPE Endpoint
