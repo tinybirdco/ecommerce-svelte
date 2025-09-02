@@ -1,95 +1,135 @@
-# Data Project
+# Ecommerce Demo - Tinybird Project
 
-Data project based on this other one [https://github.com/tinybirdco/demo-ux-person](https://github.com/tinybirdco/demo-ux-person) so feel free to check that one.
+A real-time ecommerce analytics platform built with Tinybird, featuring product inventory tracking, sales analytics, and dynamic API endpoints.
 
-## Working with the Tinybird CLI
+## Overview
 
-To start working with data projects as if they were software projects, let's install the Tinybird CLI in a virtual environment.
-Check the [CLI documentation](https://docs.tinybird.co/cli.html) for other installation options and troubleshooting.
+This project demonstrates a complete ecommerce data pipeline that tracks:
+- Product catalog management
+- Real-time inventory updates from warehouse systems
+- Customer events (views, cart additions, purchases)
+- Live product rankings and stock status
 
+## Architecture
+
+### Data Sources
+- **products**: Product catalog with categories, pricing, and metadata
+- **ecomm_events**: Real-time customer interaction events
+- **warehouse_stock**: Inventory updates from warehouse management system
+
+### Materialized Views
+- **mv_latest_availability**: Real-time product stock aggregation combining sales and warehouse data
+
+### API Endpoints
+- **api_product_grid**: Product listing with real-time stock status and trending indicators
+- **api_ui_filters**: Dynamic filter options for products and KPIs
+
+## Quick Start
+
+### Prerequisites
+- Tinybird CLI installed
+- Access to Tinybird workspace
+
+### Setup
+
+1. Clone and navigate to project:
 ```bash
-virtualenv -p python3 .e
-. .e/bin/activate
-pip install tinybird-cli
-tb auth
+git clone <repository-url>
+cd ecommerce-demo
 ```
 
-Go to your workspace, copy a token with admin rights and paste it. A new `.tinyb` file will be created.  
-
-## Project description
-
+2. Initialize Tinybird project:
 ```bash
-├── datasources
-│   ├── carts.datasource
-│   ├── fixtures
-│   │   └── prods.ndjson
-│   ├── prods.datasource
-│   ├── sales.datasource
-│   └── views.datasource
-├── endpoints
-│   └── ranking.pipe
-├── pipes
-└── tests
+tb init
 ```
 
-In the `/datasources` folder:
-- sales.datasource: where we'll be ingesting sales event data from the frontend or the data generator.
-- prods.datasource: descriptions of the products sold
-- views.datasource: where we will record visits to products
-- carts.datasource: to store number of carts to which a product was added
-
-In the `/fixtures` folder:
-- prods.ndjson
-
-In the `/endpoints` folder:
-- ranking: a pipe to rank the products based on category and desired ranking.
-
-Note:
-Typically, in big projects, we split the .pipe files across two folders: /pipes and /endpoints
-- `/pipes` where we store the pipes ending in a datasource, that is, [materialized views](https://guides.tinybird.co/guide/materialized-views)
-- `/endpoints` for the pipes that end in API endpoints.  
-
-Also you can use `/tests` to define some static and dynamic tests for your endpoints.
-
-## Pushing the data project to your Tinybird workspace
-
-Push the data project —datasources, pipes and fixtures— to your workspace
-
+3. Load sample data:
 ```bash
-tb push --fixtures
+tb datasource append ecomm_events fixtures/ecomm_events.ndjson
+tb datasource append products fixtures/products.ndjson
+tb datasource append warehouse_stock fixtures/warehouse_stock.ndjson
 ```
 
-You will see something like this:
-
+4. Build and deploy:
 ```bash
-(.e) ➜  data-project git:(master) ✗ tb push --fixtures
-** Processing ./datasources/prods.datasource
-** Processing ./datasources/views.datasource
-** Processing ./datasources/sales.datasource
-** Processing ./datasources/carts.datasource
-** Processing ./endpoints/ranking.pipe
-** Building dependencies
-** Running sales 
-** Token append_token not found, creating one
-** 'sales' created
-** Running prods 
-** 'prods' created
-** Running carts 
-** Token append_token found, adding permissions
-** 'carts' created
-** Running views 
-** Token append_token found, adding permissions
-** 'views' created
-** Running ranking 
-** => Test endpoint at https://api.tinybird.co/v0/pipes/ranking.json
-** Token read_ranking_token not found, creating one
-** => Test endpoint with:
-** $ curl https://api.tinybird.co/v0/pipes/ranking.json?token=<read_ranking_token>
-** 'ranking' created
-** Pushing fixtures
-** Warning: datasources/fixtures/sales.ndjson file not found
-** Checking ./datasources/prods.datasource (appending 1.3 kb)
-**  OK
-** Warning: datasources/fixtures/carts.ndjson file not found
-** Warning: datasources/fixtures/views.ndjson file not found
+tb build
+tb deploy
 ```
+
+### Testing the APIs
+
+**Get product grid with stock status:**
+```bash
+curl "http://localhost:7181/v0/pipes/api_product_grid.json?token=<token>"
+```
+
+**Filter products by category:**
+```bash
+curl "http://localhost:7181/v0/pipes/api_product_grid.json?category=electronics&token=<token>"
+```
+
+**Get UI filter options:**
+```bash
+curl "http://localhost:7181/v0/pipes/api_ui_filters.json?filter=product&token=<token>"
+```
+
+## Data Model
+
+### Events Schema
+- `timestamp`: Event occurrence time
+- `event`: Event type (view, cart, sale)
+- `product`: Product identifier
+
+### Products Schema
+- `id`: Unique product identifier
+- `name`: Product display name
+- `category`: Product category
+- `price`: Product price
+- `photo`: Product image URL
+
+### Stock Schema
+- `timestamp`: Update timestamp
+- `product`: Product identifier
+- `store`: Store/warehouse identifier
+- `amount`: Stock quantity change
+
+## Features
+
+### Real-time Stock Tracking
+The system combines sales events (negative stock impact) with warehouse updates (positive stock impact) to maintain accurate inventory levels.
+
+### Dynamic Product Ranking
+Products are ranked based on:
+- Stock status (in stock > low stock > out of stock)
+- Recent sales activity (trending products marked with 🔥)
+
+### Flexible Filtering
+- Category-based product filtering
+- Stock status visibility controls
+- Ranking vs price-based sorting
+
+## Tokens
+
+The project uses scoped tokens for secure API access:
+- `app_read_token`: Read access to endpoints
+- `app_append_token`: Append access to event datasources
+
+## Development
+
+### Adding New Events
+Append events to the ecomm_events datasource:
+```bash
+echo '{"timestamp": "2024-01-01 12:00:00", "event": "view", "product": "prod_123"}' | tb datasource append ecomm_events
+```
+
+### Monitoring
+Use Tinybird service datasources for monitoring:
+- `tinybird.pipe_stats_rt`: Real-time API performance
+- `tinybird.datasources_ops_log`: Data ingestion logs
+
+## Support
+
+For issues or questions:
+- Check Tinybird documentation: https://docs.tinybird.co
+- Review service datasources for debugging
+- Use `tb logs` for real-time monitoring
