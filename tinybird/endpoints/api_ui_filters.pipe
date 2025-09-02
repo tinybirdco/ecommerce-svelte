@@ -1,5 +1,4 @@
 TOKEN "tremor_dashboard_read" READ
-TOKEN "app_read_token" READ
 
 NODE products_
 SQL >
@@ -38,4 +37,4 @@ SQL >
     {% else %} value FROM kpis_
     {% end %}
 
-
+TYPE Endpoint
