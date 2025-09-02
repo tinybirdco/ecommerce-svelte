@@ -32,7 +32,7 @@ import { dollarDataFormatter, plainDataFormatter } from "../lib/utils";
 
 const TINYBIRD_HOST = process.env.NEXT_PUBLIC_TINYBIRD_HOST;
 const TINYBIRD_TOKEN = process.env.NEXT_PUBLIC_TINYBIRD_TOKEN;
-const TINYBIRD_BASE_URL = `https://${TINYBIRD_HOST}/v0/pipes`;
+const TINYBIRD_BASE_URL = `${TINYBIRD_HOST}/v0/pipes`;
 
 const fetchTinybirdUrl = async (
   pipeName: string,
