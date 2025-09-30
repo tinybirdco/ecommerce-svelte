@@ -1,4 +1,5 @@
 TOKEN "app_read_token" READ
+TOKEN "dashboard_read_token" READ
 
 NODE products_
 SQL >
